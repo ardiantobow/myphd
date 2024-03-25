@@ -1,0 +1,4 @@
+source ../../../venv/hfpg/bin/activate
+
+vmas: MARL using VMAS environment
+mygym: Single Agent RL using GYM environment
