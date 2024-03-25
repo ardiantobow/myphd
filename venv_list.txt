@@ -1,5 +1,4 @@
 source ../../../venv/hfpg/bin/activate
 
 vmas: MARL using VMAS environment
-hfpg: Hugging Face using Policy Gradient
 mygym: Single Agent RL using GYM environment
