@@ -1,0 +1,5 @@
+for case in case_base:
+            print(f"trust value >= Threshold?: {case.trust_value} >= {threshold}")
+            if case.trust_value >= threshold:
+                print(f"problem | trust value: {case.problem} | {case.trust_value}")
+                filtered_case_base.append(case)
