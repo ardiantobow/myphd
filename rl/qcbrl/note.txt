@@ -3,3 +3,23 @@ for case in case_base:
             if case.trust_value >= threshold:
                 print(f"problem | trust value: {case.problem} | {case.trust_value}")
                 filtered_case_base.append(case)
+
+
+def take_action(self, state):
+        if np.isscalar(state):
+            state_array = np.array([state])
+        else:
+            state_array = np.asarray(state)
+
+        # similar_solution = Case.retrieve(state_array, self.case_base)
+        # if similar_solution is not None:
+        #     action = similar_solution.solution
+        # else:
+            # action = self.problem_solver.choose_action(state_array)
+
+        # c = Case(state, action)
+        # Case.reuse(c, self.case_base, self.temporary_case_base)
+
+        action = self.problem_solver.choose_action(state_array)
+
+        return action
