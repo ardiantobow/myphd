@@ -15,8 +15,8 @@ class Env(tk.Tk):
     def __init__(self):
         super(Env, self).__init__()
         self.action_space = ['u', 'd', 'l', 'r']
-        self.action_size = len(self.action_space)
-        self.title('My Environment')
+        self.n_actions = len(self.action_space)
+        self.title('Reinforce')
         self.geometry('{0}x{1}'.format(HEIGHT * UNIT, HEIGHT * UNIT))
         self.shapes = self.load_images()
         self.canvas = self._build_canvas()
@@ -46,10 +46,6 @@ class Env(tk.Tk):
         self.goal = []
         # add image to canvas
         x, y = UNIT/2, UNIT/2
-        # print(f"image-x: {x}")
-        # print(f"image-y: {y}")
-        # print(f"image: {self.shapes[0]}")
-        
         self.rectangle = canvas.create_image(x, y, image=self.shapes[0])
 
         # pack all`
@@ -79,7 +75,7 @@ class Env(tk.Tk):
         self.set_reward([2, 3], -1)
 
         # #goal
-        self.set_reward([4, 4], 100)
+        self.set_reward([4, 4], 1)
 
     def set_reward(self, state, reward):
         state = [int(state[0]), int(state[1])]
@@ -138,10 +134,10 @@ class Env(tk.Tk):
 
     def step(self, action):
         self.counter += 1
-        # self.render()
+        self.render()
 
-        # if self.counter % 2 == 1:
-        #     self.rewards = self.move_rewards()
+        if self.counter % 2 == 1:
+            self.rewards = self.move_rewards()
 
         next_coords = self.move(self.rectangle, action)
         check = self.check_if_reward(self.coords_to_state(next_coords))
@@ -238,6 +234,6 @@ class Env(tk.Tk):
 
         return s_
 
-    # def render(self):
-    #     time.sleep(0.07)
-    #     self.update()
+    def render(self):
+        time.sleep(0.07)
+        self.update()
