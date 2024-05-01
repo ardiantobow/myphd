@@ -2,6 +2,7 @@ import time
 import numpy as np
 import tkinter as tk
 from PIL import ImageTk, Image
+import random
 
 np.random.seed(1)
 PhotoImage = ImageTk.PhotoImage
@@ -39,6 +40,8 @@ class Env(tk.Tk):
         self.triangle1 = canvas.create_image(250, 150, image=self.shapes[1])
         self.triangle2 = canvas.create_image(150, 250, image=self.shapes[1])
         self.circle = canvas.create_image(250, 250, image=self.shapes[2])
+        self.triangle3 = canvas.create_image(350, 350, image=self.shapes[1])  # New movable triangle obstacle
+        self.triangle4 = canvas.create_image(150, 350, image=self.shapes[1])  # New stationary triangle obstacle
 
         # pack all
         canvas.pack()
@@ -63,8 +66,16 @@ class Env(tk.Tk):
         self.render()
         # Reset grid colors to white
         self.update_grid_colors()  # Default color is white
+        # Randomly initialize triangle4 position
+        self.init_triangle4_position()
         # return observation
         return self.coords_to_state(self.canvas.coords(self.rectangle))
+
+    def init_triangle4_position(self):
+        # Randomly initialize triangle4 position
+        x = random.randint(1, WIDTH - 1) * UNIT + UNIT / 2
+        y = random.randint(1, HEIGHT - 1) * UNIT + UNIT / 2
+        self.canvas.coords(self.triangle4, x, y)
 
     def step(self, action):
         state = self.canvas.coords(self.rectangle)
@@ -97,12 +108,27 @@ class Env(tk.Tk):
             reward = 100
             done = True
             self.update_grid_colors((0, 255, 0))  # Green color
-        elif next_state in [self.canvas.coords(self.triangle1), self.canvas.coords(self.triangle2)]:  # Agent hits an obstacle
+        elif next_state in [self.canvas.coords(self.triangle1), self.canvas.coords(self.triangle2), self.canvas.coords(self.triangle3), self.canvas.coords(self.triangle4)]:  # Agent hits an obstacle
             reward = -100
             done = True
             self.update_grid_colors((255, 0, 0))  # Red color
         else:
-            reward = -1
+            reward -= 1
+
+        # Move the first obstacle left and right
+        triangle1_state = self.canvas.coords(self.triangle1)
+        if triangle1_state[0] <= UNIT or triangle1_state[0] >= (WIDTH - 1) * UNIT:
+            self.obstacle_direction *= -1
+        self.canvas.move(self.triangle1, self.obstacle_direction * UNIT, 0)
+
+        # Move the new obstacle up and down
+        triangle3_state = self.canvas.coords(self.triangle3)
+        if triangle3_state[1] <= UNIT:
+            self.canvas.move(self.triangle3, 0, UNIT)  # Move down
+        elif triangle3_state[1] >= (HEIGHT - 1) * UNIT:
+            self.canvas.move(self.triangle3, 0, -UNIT)  # Move up
+        else:
+            self.canvas.move(self.triangle3, 0, self.obstacle_direction * UNIT)  # Move according to direction
 
         return self.coords_to_state(next_state), reward, done
 
