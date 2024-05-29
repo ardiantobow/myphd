@@ -1,0 +1,8 @@
+Discrete action length (action space) depend on the number of communication channel:
+------------------------------------------
+# range discrete action for c=1 = [0:stay, 1:down, 2:up, 3:left, 4:bottom-left, 5:top-left, 6:right, 7:bottom-right, 8:top-right] of a single value
+# range discrete action for c=2 = [0/1:stay, 2/3:down, 4/5:up, 6/7:left, 8/9:bottom-left, 10/11:top-left, 12/13:right, 14/15:bottom-right, 16/17:top-right] of a single value
+
+
+
+File to change fps: ImageSequenceClip.py
