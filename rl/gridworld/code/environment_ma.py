@@ -11,7 +11,7 @@ WIDTH = 5  # grid width
 
 
 class Env(tk.Tk):
-    def __init__(self, num_agents=2, is_agent_silent=True):
+    def __init__(self, num_agents=2, is_agent_silent=False):
         super(Env, self).__init__()
         self.action_space = ['stay', 'u', 'd', 'l', 'r', 'send']
         self.n_actions = len(self.action_space)
@@ -32,7 +32,7 @@ class Env(tk.Tk):
 
     def init_agents(self):
         for i in range(self.num_agents):
-            agent = {'id': i + 1, 'image': self.shapes[0], 'coords': [UNIT * (i + 1.5), UNIT * (i + 1.5)]}
+            agent = {'id': i, 'image': self.shapes[0], 'coords': [UNIT * (i + 1.5), UNIT * (i + 1.5)]}
             self.agents.append(agent)
         self.messages = [None] * len(self.agents)  # Initialize messages to None
 
@@ -72,11 +72,22 @@ class Env(tk.Tk):
         self.update_grid_colors()
         self.messages = [None] * len(self.agents)
 
-        observations = [self.coords_to_state(agent['coords']) for agent in self.agents]
-        if not self.is_agent_silent:
-            observations = [obs + [None] for obs in observations]
+        observations = []
+        for agent in self.agents:
+            state = self.coords_to_state(agent['coords'])
+            if self.is_agent_silent:
+                communication_observation = None
+            else:
+                communication_observation = None  # Placeholder for communication
+
+            observation = {
+                'physical_observation': state,
+                'communication_observation': communication_observation
+            }
+            observations.append(observation)
 
         return observations
+
 
     def step(self, actions):
         rewards = []
@@ -89,16 +100,16 @@ class Env(tk.Tk):
             message = None
 
             if self.is_agent_silent:
-                if action == 1:  # up
+                if action[0] == 1:  # up
                     if state[1] > UNIT:
                         base_action[1] -= UNIT
-                elif action == 2:  # down
+                elif action[0] == 2:  # down
                     if state[1] < (HEIGHT - 1) * UNIT:
                         base_action[1] += UNIT
-                elif action == 3:  # left
+                elif action[0] == 3:  # left
                     if state[0] > UNIT:
                         base_action[0] -= UNIT
-                elif action == 4:  # right:
+                elif action[0] == 4:  # right:
                     if state[0] < (WIDTH - 1) * UNIT:
                         base_action[0] += UNIT
             else:
@@ -114,14 +125,14 @@ class Env(tk.Tk):
                 elif action[0] == 4:  # right
                     if state[0] < (WIDTH - 1) * UNIT:
                         base_action[0] += UNIT
-                if action[1] == 'send':  # send message
-                    message = f"Message from agent {agent['id']}"
 
+            # Move the agent and update its state
             self.canvas.move(agent['image_obj'], base_action[0], base_action[1])
             self.canvas.tag_raise(agent['image_obj'])
             next_state = self.canvas.coords(agent['image_obj'])
             agent['coords'] = next_state
 
+            # Determine reward and check if done
             reward = 0
             done = False
             if next_state == self.canvas.coords(self.circle):  # Agent hits the target
@@ -135,15 +146,33 @@ class Env(tk.Tk):
             else:
                 reward = -1
 
+            # Append reward and done status
             rewards.append(reward)
             dones.append(done)
+
+            # Prepare next state observation
             next_state_obs = self.coords_to_state(next_state)
+
+            # Append received message to observation if communication is enabled
             if not self.is_agent_silent:
-                next_state_obs += [self.messages[idx]]
-                self.messages[idx] = message
+                other_agents_messages = []
+                for other_agent in self.agents:
+                    if other_agent == agent:
+                        continue  # Skip the current agent itself
+
+                    # Append other agent's communication message
+                    other_agent_message = f"Message from agent {other_agent['id']}"
+                    other_agents_messages.append(other_agent_message)
+
+                next_state_obs += other_agents_messages
+
+            # Append next state observation to list
             next_states.append(next_state_obs)
 
         return next_states, rewards, dones
+
+
+
 
     def render(self):
         time.sleep(0.03)
