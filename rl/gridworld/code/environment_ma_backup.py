@@ -31,16 +31,12 @@ class Env(tk.Tk):
         self.canvas = self._build_canvas()
 
     def init_agents(self):
-        self.agents = []
         for i in range(self.num_agents):
-            if i == 0:
-                start_x, start_y = UNIT / 2, UNIT / 2  # Top-left for Agent 1
-            elif i == 1:
-                start_x, start_y = (WIDTH - 0.5) * UNIT, UNIT / 2  # Top-right for Agent 2
-            
-            agent = {'id': i, 'image': self.shapes[0], 'coords': [start_x, start_y]}
+            # Adjust initial positions to be closer to the target circle
+            agent = {'id': i, 'image': self.shapes[0], 'coords': [250 + i * 50, 250]}
             self.agents.append(agent)
         self.messages = [None] * len(self.agents)  # Initialize messages to None
+
 
     def _build_canvas(self):
         canvas = tk.Canvas(self, bg='white', height=HEIGHT * UNIT, width=WIDTH * UNIT)
@@ -61,7 +57,7 @@ class Env(tk.Tk):
         return canvas
 
     def load_images(self):
-        rectangle = PhotoImage(Image.open("../img/agent.png").resize((65, 65)))
+        rectangle = PhotoImage(Image.open("../img/rectangle.png").resize((65, 65)))
         triangle = PhotoImage(Image.open("../img/triangle.png").resize((65, 65)))
         circle = PhotoImage(Image.open("../img/circle.png").resize((65, 65)))
         return rectangle, triangle, circle
@@ -69,17 +65,10 @@ class Env(tk.Tk):
     def reset(self):
         self.update()
         time.sleep(0.5)
-        
-        # Reinitialize agents' positions
-        agent_positions = [
-            [UNIT / 2, UNIT / 2],  # Top-left for Agent 1
-            [(WIDTH - 0.5) * UNIT, UNIT / 2]  # Top-right for Agent 2
-        ]
-        
-        for agent, pos in zip(self.agents, agent_positions):
-            x, y = pos
-            self.canvas.coords(agent['image_obj'], x, y)
-            agent['coords'] = [x, y]
+        for agent in self.agents:
+            x, y = agent['coords']
+            self.canvas.move(agent['image_obj'], UNIT / 2 - x, UNIT / 2 - y)
+            agent['coords'] = [UNIT / 2, UNIT / 2]
 
         self.render()
         self.update_grid_colors()
@@ -101,10 +90,10 @@ class Env(tk.Tk):
 
         return observations
 
+
     def step(self, actions):
         rewards = []
         dones = []
-        wins = []
         next_states = []
 
         for idx, (agent, action) in enumerate(zip(self.agents, actions)):
@@ -148,15 +137,13 @@ class Env(tk.Tk):
             # Determine reward and check if done
             reward = 0
             done = False
-            win = False
             if next_state == self.canvas.coords(self.circle):  # Agent hits the target
                 reward = 100
                 done = True
-                win = True
+                self.update_grid_colors((0, 255, 0))
             elif next_state in [self.canvas.coords(self.triangle1), self.canvas.coords(self.triangle2)]:  # Agent hits an obstacle
                 reward = -100
                 done = True
-                win = False
                 self.update_grid_colors((255, 0, 0))
             else:
                 reward = -1
@@ -164,7 +151,6 @@ class Env(tk.Tk):
             # Append reward and done status
             rewards.append(reward)
             dones.append(done)
-            wins.append(win)
 
             # Prepare next state observation
             next_state_obs = self.coords_to_state(next_state)
@@ -185,11 +171,10 @@ class Env(tk.Tk):
             # Append next state observation to list
             next_states.append(next_state_obs)
 
-        # Check if all agents are done
-        if all(dones) and all(wins):
-            self.update_grid_colors((0, 255, 0))
-
         return next_states, rewards, dones
+
+
+
 
     def render(self):
         time.sleep(0.03)
