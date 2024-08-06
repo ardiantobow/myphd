@@ -86,18 +86,23 @@ class Env(tk.Tk):
         self.messages = [None] * len(self.agents)
 
         observations = []
+        win_state = False
         for agent in self.agents:
             state = self.coords_to_state(agent['coords'])
             if self.is_agent_silent:
                 communication_observation = None
             else:
                 communication_observation = None  # Placeholder for communication
+            
+            observation = [state, win_state, communication_observation]
 
-            observation = {
-                'physical_observation': state,
-                'communication_observation': communication_observation
-            }
+            # observation = {
+            #     'physical_observation': state,
+            #     'communication_observation': communication_observation
+            # }
             observations.append(observation)
+            # observations.append(win_state)
+
 
         return observations
 
@@ -111,6 +116,9 @@ class Env(tk.Tk):
             state = agent['coords']
             base_action = np.array([0, 0])
             message = None
+
+            # print (f"check agent {idx}, physical action: {action[0]}, comm action: {action[1]}")
+            # print (f"check actions {actions}")
 
             if self.is_agent_silent:
                 if action[0] == 1:  # up
@@ -149,6 +157,8 @@ class Env(tk.Tk):
             reward = 0
             done = False
             win = False
+            # print(f"target coordinate: {self.get_circle_grid_position()}")
+            # print(f"next state: {next_state}")
             if next_state == self.canvas.coords(self.circle):  # Agent hits the target
                 reward = 100
                 done = True
@@ -164,26 +174,33 @@ class Env(tk.Tk):
             # Append reward and done status
             rewards.append(reward)
             dones.append(done)
-            wins.append(win)
+            # wins.append(win)
 
             # Prepare next state observation
             next_state_obs = self.coords_to_state(next_state)
+            # next_state_obs.append(win)
 
             # Append received message to observation if communication is enabled
             if not self.is_agent_silent:
-                other_agents_messages = []
+                # print('agents not silent')
+                next_state_comms = []
                 for other_agent in self.agents:
                     if other_agent == agent:
                         continue  # Skip the current agent itself
 
                     # Append other agent's communication message
-                    other_agent_message = f"Message from agent {other_agent['id']}"
-                    other_agents_messages.append(other_agent_message)
+                    # other_agent_message = f"{agent['id']} will receive message from other agent {other_agent['id']}"
+                    # other_agent_message = f"{agent['id']} has receive message from other agent {other_agent['id']}: {actions[other_agent['id']][1]}"
+                    other_agent_message = actions[other_agent['id']][1]
+                    next_state_comms.append(other_agent_message)
 
-                next_state_obs += other_agents_messages
-
+                # next_state_obs += next_state_comms
+            # else:
+                # print('agents is silent')
             # Append next state observation to list
-            next_states.append(next_state_obs)
+            next_state_observation = [next_state_obs, win, next_state_comms]
+
+            next_states.append(next_state_observation)
 
         # Check if all agents are done
         if all(dones) and all(wins):
@@ -192,7 +209,7 @@ class Env(tk.Tk):
         return next_states, rewards, dones
 
     def render(self):
-        time.sleep(0.03)
+        time.sleep(0.5)
         self.update()
 
     def update_grid_colors(self, color=(255, 255, 255)):
@@ -213,6 +230,11 @@ class Env(tk.Tk):
         y = int((coords[1] - 50) / 100)
         return [x, y]
 
+    def get_circle_grid_position(self):
+        circle_coords = self.canvas.coords(self.circle)
+        grid_position = self.coords_to_state(circle_coords)
+        return grid_position
+
     @staticmethod
     def rgb_to_hex(rgb):
         return '#%02x%02x%02x' % rgb
@@ -220,4 +242,5 @@ class Env(tk.Tk):
 
 if __name__ == "__main__":
     env = Env()
+    # print("Circle Grid Position:", env.get_circle_grid_position())
     env.mainloop()
