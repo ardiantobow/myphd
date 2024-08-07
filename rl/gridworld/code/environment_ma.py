@@ -112,6 +112,8 @@ class Env(tk.Tk):
         wins = []
         next_states = []
 
+        circle_pos = self.canvas.coords(self.circle)
+
         for idx, (agent, action) in enumerate(zip(self.agents, actions)):
             state = agent['coords']
             base_action = np.array([0, 0])
@@ -147,30 +149,49 @@ class Env(tk.Tk):
                     if state[0] < (WIDTH - 1) * UNIT:
                         base_action[0] += UNIT
 
+             # Calculate the Manhattan distance before moving
+            # initial_pos = self.coords_to_state(state)
+            initial_distance = abs(state[0] - circle_pos[0]) + abs(state[1] - circle_pos[1])
+
             # Move the agent and update its state
             self.canvas.move(agent['image_obj'], base_action[0], base_action[1])
             self.canvas.tag_raise(agent['image_obj'])
             next_state = self.canvas.coords(agent['image_obj'])
             agent['coords'] = next_state
 
+            # Calculate the Manhattan distance after moving
+            # new_pos = self.coords_to_state(next_state)
+            new_distance = abs(next_state[0] - circle_pos[0]) + abs(next_state[1] - circle_pos[1])
+
+            # Determine reward based on distance reduction
+            reward = initial_distance - new_distance
+
+            print(f"agent {idx} initial position: {state}")
+            print(f"agent {idx} new position: {next_state}")
+            print(f"target position: {circle_pos}")
+            print(f"initial distance agent {idx}: {initial_distance}")
+            print(f"new distance agent {idx}: {new_distance}")
+            print(f"reward obtained agent {idx}: {reward}")
+
             # Determine reward and check if done
-            reward = 0
+            
             done = False
             win = False
             # print(f"target coordinate: {self.get_circle_grid_position()}")
             # print(f"next state: {next_state}")
             if next_state == self.canvas.coords(self.circle):  # Agent hits the target
-                reward = 100
+                reward_hit = 10
                 done = True
                 win = True
             elif next_state in [self.canvas.coords(self.triangle1), self.canvas.coords(self.triangle2)]:  # Agent hits an obstacle
-                reward = -100
+                reward_hit = -10
                 done = True
                 win = False
                 self.update_grid_colors((255, 0, 0))
             else:
-                reward = -1
+                reward_hit = 0
 
+            reward += reward_hit
             # Append reward and done status
             rewards.append(reward)
             dones.append(done)
