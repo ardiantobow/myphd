@@ -81,7 +81,6 @@ class Env(tk.Tk):
             self.canvas.coords(agent['image_obj'], x, y)
             agent['coords'] = [x, y]
 
-        self.render()
         self.update_grid_colors()
         self.messages = [None] * len(self.agents)
 
@@ -103,7 +102,9 @@ class Env(tk.Tk):
     def step(self, actions):
         rewards = []
         dones = []
+        wins = []
         next_states = []
+        self.render()
 
         circle_pos = self.get_circle_grid_position()
 
@@ -154,17 +155,29 @@ class Env(tk.Tk):
             new_distance = abs(new_pos[0] - circle_pos[0]) + abs(new_pos[1] - circle_pos[1])
 
             # Determine reward based on distance reduction
-            reward = initial_distance - new_distance
+            reward_position = initial_distance - new_distance
 
-            # Check if agent reaches the target
+            reward = 0
             done = False
-            if new_pos == circle_pos:
-                reward = 100
+            win = False
+
+            if next_state == self.canvas.coords(self.circle):  # Agent hits the target
+                reward_bonus = 100
                 done = True
+                win = True
+            else: 
+                next_state in [self.canvas.coords(self.triangle1), self.canvas.coords(self.triangle2)]:  # Agent hits an obstacle
+                reward_bonus = -100
+                done = True
+                win = False
+                self.update_grid_colors((255, 0, 0))
+            
+            reward = reward_position + reward_bonus
 
             # Append reward and done status
             rewards.append(reward)
             dones.append(done)
+            wins.append(win)
 
             # Prepare next state observation
             next_state_obs = self.coords_to_state(next_state)
@@ -184,13 +197,13 @@ class Env(tk.Tk):
             next_states.append(next_state_observation)
 
         # Check if all agents are done
-        if all(dones):
+        if all(dones) and all(wins):
             self.update_grid_colors((0, 255, 0))
 
         return next_states, rewards, dones
 
     def render(self):
-        time.sleep(0.5)
+        time.sleep(0.03)
         self.update()
 
     def update_grid_colors(self, color=(255, 255, 255)):
