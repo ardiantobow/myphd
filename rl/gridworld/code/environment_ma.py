@@ -115,7 +115,6 @@ class Env(tk.Tk):
         for idx, (agent, action) in enumerate(zip(self.agents, actions)):
             state = agent['coords']
             base_action = np.array([0, 0])
-            message = None
 
             # print (f"check agent {idx}, physical action: {action[0]}, comm action: {action[1]}")
             # print (f"check actions {actions}")

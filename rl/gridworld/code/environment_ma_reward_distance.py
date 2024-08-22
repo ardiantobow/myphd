@@ -13,7 +13,7 @@ WIDTH = 5  # grid width
 class Env(tk.Tk):
     def __init__(self, num_agents=2, is_agent_silent=False):
         super(Env, self).__init__()
-        self.action_space = ['stay', 'u', 'd', 'l', 'r', 'send']
+        self.action_space = ['s', 'u', 'd', 'l', 'r']
         self.n_actions = len(self.action_space)
         self.is_agent_silent = is_agent_silent
         self.title('Multi-Agent Environment')
@@ -27,6 +27,8 @@ class Env(tk.Tk):
         self.num_agents = num_agents
         self.agents = []
         self.messages = []
+        self.first_agent_reached = False
+        self.mega_bonus_given = False
         self.init_agents()
         self.canvas = self._build_canvas()
 
@@ -83,6 +85,8 @@ class Env(tk.Tk):
 
         self.update_grid_colors()
         self.messages = [None] * len(self.agents)
+        self.first_agent_reached = False
+        self.mega_bonus_given = False
 
         observations = []
         win_state = False
@@ -104,100 +108,96 @@ class Env(tk.Tk):
         dones = []
         wins = []
         next_states = []
+        agents_reached_target = 0
         self.render()
-
+        
+        self.update_grid_colors()
         circle_pos = self.get_circle_grid_position()
+        
+        reward_position = 0
+        reward_bonus = 0
+        reward = 0
+        done = False
+        win = False
 
         for idx, (agent, action) in enumerate(zip(self.agents, actions)):
             state = agent['coords']
             base_action = np.array([0, 0])
             message = None
+            physical_action = action[0]
 
-            if self.is_agent_silent:
-                if action[0] == 1:  # up
-                    if state[1] > UNIT:
-                        base_action[1] -= UNIT
-                elif action[0] == 2:  # down
-                    if state[1] < (HEIGHT - 1) * UNIT:
-                        base_action[1] += UNIT
-                elif action[0] == 3:  # left
-                    if state[0] > UNIT:
-                        base_action[0] -= UNIT
-                elif action[0] == 4:  # right:
-                    if state[0] < (WIDTH - 1) * UNIT:
-                        base_action[0] += UNIT
-            else:
-                if action[0] == 1:  # up
-                    if state[1] > UNIT:
-                        base_action[1] -= UNIT
-                elif action[0] == 2:  # down
-                    if state[1] < (HEIGHT - 1) * UNIT:
-                        base_action[1] += UNIT
-                elif action[0] == 3:  # left
-                    if state[0] > UNIT:
-                        base_action[0] -= UNIT
-                elif action[0] == 4:  # right
-                    if state[0] < (WIDTH - 1) * UNIT:
-                        base_action[0] += UNIT
+            if physical_action == 0:
+                base_action[0] = base_action[0]
+                base_action[1] = base_action[1]
+            elif physical_action == 1:  # up
+                if state[1] > UNIT:
+                    base_action[1] -= UNIT
+            elif physical_action == 2:  # down
+                if state[1] < (HEIGHT - 1) * UNIT:
+                    base_action[1] += UNIT
+            elif physical_action == 3:  # left
+                if state[0] > UNIT:
+                    base_action[0] -= UNIT
+            elif physical_action == 4:  # right
+                if state[0] < (WIDTH - 1) * UNIT:
+                    base_action[0] += UNIT
 
-            # Calculate the Manhattan distance before moving
             initial_pos = self.coords_to_state(state)
             initial_distance = abs(initial_pos[0] - circle_pos[0]) + abs(initial_pos[1] - circle_pos[1])
 
-            # Move the agent and update its state
             self.canvas.move(agent['image_obj'], base_action[0], base_action[1])
             self.canvas.tag_raise(agent['image_obj'])
             next_state = self.canvas.coords(agent['image_obj'])
             agent['coords'] = next_state
 
-            # Calculate the Manhattan distance after moving
             new_pos = self.coords_to_state(next_state)
             new_distance = abs(new_pos[0] - circle_pos[0]) + abs(new_pos[1] - circle_pos[1])
 
-            # Determine reward based on distance reduction
             reward_position = initial_distance - new_distance
 
-            reward = 0
-            done = False
-            win = False
-
             if next_state == self.canvas.coords(self.circle):  # Agent hits the target
-                reward_bonus = 100
-                done = True
+                agents_reached_target += 1
+                if not self.first_agent_reached:
+                    reward_bonus = 10
+                    self.first_agent_reached = True
+                else:
+                    reward_bonus = 0
+
                 win = True
-            else: 
-                next_state in [self.canvas.coords(self.triangle1), self.canvas.coords(self.triangle2)]:  # Agent hits an obstacle
-                reward_bonus = -100
+                self.update_grid_colors((0, 0, 255))
+            elif next_state in [self.canvas.coords(self.triangle1), self.canvas.coords(self.triangle2)]:  # Agent hits an obstacle
+                reward_bonus = -10
                 done = True
                 win = False
                 self.update_grid_colors((255, 0, 0))
+            else:
+                reward_bonus = -1
             
-            reward = reward_position + reward_bonus
+            reward = reward_bonus
 
-            # Append reward and done status
             rewards.append(reward)
             dones.append(done)
             wins.append(win)
 
-            # Prepare next state observation
             next_state_obs = self.coords_to_state(next_state)
 
-            # Append received message to observation if communication is enabled
+            next_state_comms = []
             if not self.is_agent_silent:
-                next_state_comms = []
                 for other_agent in self.agents:
                     if other_agent == agent:
-                        continue  # Skip the current agent itself
+                        continue
 
                     other_agent_message = actions[other_agent['id']][1]
                     next_state_comms.append(other_agent_message)
 
-            next_state_observation = [next_state_obs, done, next_state_comms if not self.is_agent_silent else None]
+            next_state_observation = [next_state_obs, win, next_state_comms]
 
             next_states.append(next_state_observation)
 
-        # Check if all agents are done
-        if all(dones) and all(wins):
+        if agents_reached_target == self.num_agents and not self.mega_bonus_given:
+            for i in range(len(rewards)):
+                rewards[i] += 100  # Mega bonus
+            self.mega_bonus_given = True
             self.update_grid_colors((0, 255, 0))
 
         return next_states, rewards, dones
