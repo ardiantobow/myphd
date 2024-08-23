@@ -16,12 +16,12 @@ class Env(tk.Tk):
         self.action_space = ['s', 'u', 'd', 'l', 'r']
         self.n_actions = len(self.action_space)
         self.is_agent_silent = is_agent_silent
-        self.title('Multi-Agent Environment')
+        self.title('Multi-Agent Dynamic Environment')
         self.geometry('{0}x{1}'.format(HEIGHT * UNIT, HEIGHT * UNIT))
         self.shapes = self.load_images()
         self.grid_colors = [[(255, 255, 255)] * WIDTH for _ in range(HEIGHT)]
         self.texts = []
-        self.obstacle_direction = 1  # 1 for moving right, -1 for moving left
+        self.episode_count = 0  # Initialize episode counter
 
         # Multi-agent setup
         self.num_agents = num_agents
@@ -29,8 +29,10 @@ class Env(tk.Tk):
         self.messages = []
         self.first_agent_reached = False
         self.mega_bonus_given = False
+        self.locked = [False] * self.num_agents 
         self.init_agents()
         self.canvas = self._build_canvas()
+        self.win_flag = False
 
     def init_agents(self):
         self.agents = []
@@ -87,6 +89,13 @@ class Env(tk.Tk):
         self.messages = [None] * len(self.agents)
         self.first_agent_reached = False
         self.mega_bonus_given = False
+        self.locked = [False] * self.num_agents 
+
+        self.episode_count += 1  # Increment episode counter
+
+        # Move obstacles every 100 episodes
+        if self.episode_count % 100 == 0:
+            self.move_obstacles()
 
         observations = []
         win_state = False
@@ -103,13 +112,32 @@ class Env(tk.Tk):
 
         return observations
 
+    def move_obstacles(self):
+        # Get the current positions of the agents (which are their initial positions after reset)
+        initial_agent_positions = [tuple(agent['coords']) for agent in self.agents]
+        
+        positions = []
+        
+        while len(positions) < 2:
+            x = np.random.randint(0, WIDTH) * UNIT + UNIT / 2
+            y = np.random.randint(0, HEIGHT) * UNIT + UNIT / 2
+            new_pos = (x, y)
+            
+            # Ensure no overlap with other obstacles or initial agent positions
+            if new_pos not in positions and new_pos not in initial_agent_positions:
+                positions.append(new_pos)
+        
+        # Set the new positions for the obstacles
+        self.canvas.coords(self.triangle1, positions[0][0], positions[0][1])
+        self.canvas.coords(self.triangle2, positions[1][0], positions[1][1])
+
+
     def step(self, actions):
         rewards = []
         dones = []
         wins = []
         next_states = []
         agents_reached_target = 0
-        
         
         self.update_grid_colors()
         circle_pos = self.get_circle_grid_position()
@@ -121,6 +149,13 @@ class Env(tk.Tk):
         win = False
 
         for idx, (agent, action) in enumerate(zip(self.agents, actions)):
+
+            if self.locked[idx]:  # If agent is locked, skip action processing
+                rewards.append(0)
+                dones.append(self.locked[idx])
+                next_states.append([self.coords_to_state(agent['coords']), False, None])
+                continue
+
             state = agent['coords']
             base_action = np.array([0, 0])
             message = None
@@ -155,23 +190,30 @@ class Env(tk.Tk):
             reward_position = initial_distance - new_distance
 
             if next_state == self.canvas.coords(self.circle):  # Agent hits the target
+                
                 agents_reached_target += 1
                 if not self.first_agent_reached:
                     reward_bonus = 100
                     self.first_agent_reached = True
                 else:
                     reward_bonus = 0
+
                 reward_bonus = 100
-                done = False
+                done = False # problem for case base
                 win = True
+                self.locked[idx] = True #problem for case base
                 self.update_grid_colors((0, 0, 255))
+                
             elif next_state in [self.canvas.coords(self.triangle1), self.canvas.coords(self.triangle2)]:  # Agent hits an obstacle
                 reward_bonus = -10
-                done = True
+                done = False
                 win = False
+                self.locked[idx] = True
                 self.update_grid_colors((255, 0, 0))
             else:
                 reward_bonus = -1
+                # done = False
+                # win = False
             
             reward = reward_bonus
             # reward = reward_bonus + reward_position
@@ -179,11 +221,8 @@ class Env(tk.Tk):
             rewards.append(reward)
             dones.append(done)
             wins.append(win)
-
-            agent['coords'] = next_state
-            next_state_obs = self.coords_to_state(next_state)
             
-
+            next_state_obs = self.coords_to_state(next_state)
             next_state_comms = []
             if not self.is_agent_silent:
                 for other_agent in self.agents:
@@ -196,15 +235,21 @@ class Env(tk.Tk):
             next_state_observation = [next_state_obs, win, next_state_comms]
 
             next_states.append(next_state_observation)
+
+            agent['coords'] = next_state
         
         if all(wins):
             self.update_grid_colors((0, 255, 0))
+            self.win_flag = True
 
         if agents_reached_target == self.num_agents and not self.mega_bonus_given:
             for i in range(len(rewards)):
                 rewards[i] += 1000  # Mega bonus
             self.mega_bonus_given = True
            
+        if all(self.locked):
+            dones = [True] * self.num_agents
+            self.locked = [False] * self.num_agents
 
         # self.render()
         return next_states, rewards, dones
@@ -244,3 +289,4 @@ class Env(tk.Tk):
 if __name__ == "__main__":
     env = Env()
     env.mainloop()
+

@@ -16,12 +16,12 @@ class Env(tk.Tk):
         self.action_space = ['s', 'u', 'd', 'l', 'r']
         self.n_actions = len(self.action_space)
         self.is_agent_silent = is_agent_silent
-        self.title('Multi-Agent Environment')
+        self.title('Multi-Agent Dynamic Environment')
         self.geometry('{0}x{1}'.format(HEIGHT * UNIT, HEIGHT * UNIT))
         self.shapes = self.load_images()
         self.grid_colors = [[(255, 255, 255)] * WIDTH for _ in range(HEIGHT)]
         self.texts = []
-        self.obstacle_direction = 1  # 1 for moving right, -1 for moving left
+        self.episode_count = 0  # Initialize episode counter
 
         # Multi-agent setup
         self.num_agents = num_agents
@@ -88,6 +88,12 @@ class Env(tk.Tk):
         self.first_agent_reached = False
         self.mega_bonus_given = False
 
+        self.episode_count += 1  # Increment episode counter
+
+        # Move obstacles every 100 episodes
+        if self.episode_count % 10 == 0:
+            self.move_obstacles()
+
         observations = []
         win_state = False
         for agent in self.agents:
@@ -103,13 +109,32 @@ class Env(tk.Tk):
 
         return observations
 
+    def move_obstacles(self):
+        # Get the current positions of the agents (which are their initial positions after reset)
+        initial_agent_positions = [tuple(agent['coords']) for agent in self.agents]
+        
+        positions = []
+        
+        while len(positions) < 2:
+            x = np.random.randint(0, WIDTH) * UNIT + UNIT / 2
+            y = np.random.randint(0, HEIGHT) * UNIT + UNIT / 2
+            new_pos = (x, y)
+            
+            # Ensure no overlap with other obstacles or initial agent positions
+            if new_pos not in positions and new_pos not in initial_agent_positions:
+                positions.append(new_pos)
+        
+        # Set the new positions for the obstacles
+        self.canvas.coords(self.triangle1, positions[0][0], positions[0][1])
+        self.canvas.coords(self.triangle2, positions[1][0], positions[1][1])
+
+
     def step(self, actions):
         rewards = []
         dones = []
         wins = []
         next_states = []
         agents_reached_target = 0
-        
         
         self.update_grid_colors()
         circle_pos = self.get_circle_grid_position()

@@ -1,577 +1,595 @@
-Action for Agent 0 from problem solver
-Action for Agent 1 from problem solver
-state agent 0 before update: (0, 0)
-action agent 0 before update: 0
-reward agent 0 before update: -1
-next state agent 0 before update: (0, 0)
-agent0 not hit !!!!!
-state agent 1 before update: (4, 0)
-action agent 1 before update: 2
-reward agent 1 before update: -1
-next state agent 1 before update: (4, 1)
-agent1 not hit !!!!!
-Action for Agent 0 from problem solver
-Action for Agent 1 from problem solver
-state agent 0 before update: (0, 0)
-action agent 0 before update: 1
-reward agent 0 before update: -1
-next state agent 0 before update: (0, 0)
-agent0 not hit !!!!!
-state agent 1 before update: (4, 1)
-action agent 1 before update: 4
-reward agent 1 before update: -1
-next state agent 1 before update: (4, 1)
-agent1 not hit !!!!!
-Action for Agent 0 from problem solver
-Action for Agent 1 from problem solver
-state agent 0 before update: (0, 0)
-action agent 0 before update: 3
-reward agent 0 before update: -1
-next state agent 0 before update: (0, 0)
-agent0 not hit !!!!!
-state agent 1 before update: (4, 1)
-action agent 1 before update: 0
-reward agent 1 before update: -1
-next state agent 1 before update: (4, 1)
-agent1 not hit !!!!!
-Action for Agent 0 from problem solver
-Action for Agent 1 from problem solver
-state agent 0 before update: (0, 0)
-action agent 0 before update: 4
-reward agent 0 before update: -1
-next state agent 0 before update: (1, 0)
-agent0 not hit !!!!!
-state agent 1 before update: (4, 1)
-action agent 1 before update: 1
-reward agent 1 before update: -1
-next state agent 1 before update: (4, 0)
-agent1 not hit !!!!!
-Action for Agent 0 from problem solver
-Action for Agent 1 from problem solver
-state agent 0 before update: (1, 0)
-action agent 0 before update: 2
-reward agent 0 before update: -1
-next state agent 0 before update: (1, 1)
-agent0 not hit !!!!!
-state agent 1 before update: (4, 0)
-action agent 1 before update: 3
-reward agent 1 before update: -1
-next state agent 1 before update: (3, 0)
-agent1 not hit !!!!!
-Action for Agent 0 from problem solver
-Action for Agent 1 from problem solver
-state agent 0 before update: (1, 1)
-action agent 0 before update: 0
-reward agent 0 before update: -1
-next state agent 0 before update: (1, 1)
-agent0 not hit !!!!!
-state agent 1 before update: (3, 0)
-action agent 1 before update: 0
-reward agent 1 before update: -1
-next state agent 1 before update: (3, 0)
-agent1 not hit !!!!!
-Action for Agent 0 from problem solver
-Action for Agent 1 from problem solver
-state agent 0 before update: (1, 1)
-action agent 0 before update: 3
-reward agent 0 before update: -1
-next state agent 0 before update: (0, 1)
-agent0 not hit !!!!!
-state agent 1 before update: (3, 0)
-action agent 1 before update: 4
-reward agent 1 before update: -1
-next state agent 1 before update: (4, 0)
-agent1 not hit !!!!!
-Action for Agent 0 from problem solver
-Action for Agent 1 from problem solver
-state agent 0 before update: (0, 1)
-action agent 0 before update: 1
-reward agent 0 before update: -1
-next state agent 0 before update: (0, 0)
-agent0 not hit !!!!!
-state agent 1 before update: (4, 0)
-action agent 1 before update: 4
-reward agent 1 before update: -1
-next state agent 1 before update: (4, 0)
-agent1 not hit !!!!!
-Action for Agent 0 from problem solver
-Action for Agent 1 from problem solver
-state agent 0 before update: (0, 0)
-action agent 0 before update: 0
-reward agent 0 before update: -1
-next state agent 0 before update: (0, 0)
-agent0 not hit !!!!!
-state agent 1 before update: (4, 0)
-action agent 1 before update: 1
-reward agent 1 before update: -1
-next state agent 1 before update: (4, 0)
-agent1 not hit !!!!!
-Action for Agent 0 from problem solver
-Action for Agent 1 from problem solver
-state agent 0 before update: (0, 0)
-action agent 0 before update: 2
-reward agent 0 before update: -1
-next state agent 0 before update: (0, 1)
-agent0 not hit !!!!!
-state agent 1 before update: (4, 0)
-action agent 1 before update: 0
-reward agent 1 before update: -1
-next state agent 1 before update: (4, 0)
-agent1 not hit !!!!!
-Action for Agent 0 from problem solver
-Action for Agent 1 from problem solver
-state agent 0 before update: (0, 1)
-action agent 0 before update: 3
-reward agent 0 before update: -1
-next state agent 0 before update: (0, 1)
-agent0 not hit !!!!!
-state agent 1 before update: (4, 0)
-action agent 1 before update: 3
-reward agent 1 before update: -1
-next state agent 1 before update: (3, 0)
-agent1 not hit !!!!!
-Action for Agent 0 from problem solver
-Action for Agent 1 from problem solver
-state agent 0 before update: (0, 1)
-action agent 0 before update: 0
-reward agent 0 before update: -1
-next state agent 0 before update: (0, 1)
-agent0 not hit !!!!!
-state agent 1 before update: (3, 0)
-action agent 1 before update: 2
-reward agent 1 before update: -1
-next state agent 1 before update: (3, 1)
-agent1 not hit !!!!!
-Action for Agent 0 from problem solver
-Action for Agent 1 from problem solver
-state agent 0 before update: (0, 1)
-action agent 0 before update: 0
-reward agent 0 before update: -1
-next state agent 0 before update: (0, 1)
-agent0 not hit !!!!!
-state agent 1 before update: (3, 1)
-action agent 1 before update: 2
-reward agent 1 before update: -1
-next state agent 1 before update: (3, 2)
-agent1 not hit !!!!!
-Action for Agent 0 from problem solver
-Action for Agent 1 from problem solver
-state agent 0 before update: (0, 1)
-action agent 0 before update: 2
-reward agent 0 before update: -1
-next state agent 0 before update: (0, 2)
-agent0 not hit !!!!!
-state agent 1 before update: (3, 2)
-action agent 1 before update: 3
-reward agent 1 before update: 10
-next state agent 1 before update: (2, 2)
-agent1 not hit !!!!!
-Action for Agent 0 from problem solver
-Action for Agent 1 from problem solver
-state agent 0 before update: (0, 2)
-action agent 0 before update: 2
-reward agent 0 before update: -1
-next state agent 0 before update: (0, 3)
-agent0 not hit !!!!!
-state agent 1 before update: (2, 2)
-action agent 1 before update: 4
-reward agent 1 before update: -1
-next state agent 1 before update: (3, 2)
-agent1 hit !!!!!
-Action for Agent 0 from problem solver
-Action for Agent 1 from problem solver
-state agent 0 before update: (0, 3)
-action agent 0 before update: 3
-reward agent 0 before update: -1
-next state agent 0 before update: (0, 3)
-agent0 not hit !!!!!
-state agent 1 before update: (3, 2)
-action agent 1 before update: 3
-reward agent 1 before update: 0
-next state agent 1 before update: (2, 2)
-agent1 not hit !!!!!
-Action for Agent 0 from problem solver
-Action for Agent 1 from problem solver
-state agent 0 before update: (0, 3)
-action agent 0 before update: 0
-reward agent 0 before update: -1
-next state agent 0 before update: (0, 3)
-agent0 not hit !!!!!
-state agent 1 before update: (2, 2)
-action agent 1 before update: 4
-reward agent 1 before update: -1
-next state agent 1 before update: (3, 2)
-agent1 hit !!!!!
-Action for Agent 0 from problem solver
-Action for Agent 1 from problem solver
-state agent 0 before update: (0, 3)
-action agent 0 before update: 2
-reward agent 0 before update: -1
-next state agent 0 before update: (0, 4)
-agent0 not hit !!!!!
-state agent 1 before update: (3, 2)
-action agent 1 before update: 3
-reward agent 1 before update: 0
-next state agent 1 before update: (2, 2)
-agent1 not hit !!!!!
-Action for Agent 0 from problem solver
-Action for Agent 1 from problem solver
-state agent 0 before update: (0, 4)
-action agent 0 before update: 2
-reward agent 0 before update: -1
-next state agent 0 before update: (0, 4)
-agent0 not hit !!!!!
-state agent 1 before update: (2, 2)
-action agent 1 before update: 4
-reward agent 1 before update: -1
-next state agent 1 before update: (3, 2)
-agent1 hit !!!!!
-Action for Agent 0 from problem solver
-Action for Agent 1 from problem solver
-state agent 0 before update: (0, 4)
-action agent 0 before update: 3
-reward agent 0 before update: -1
-next state agent 0 before update: (0, 4)
-agent0 not hit !!!!!
-state agent 1 before update: (3, 2)
-action agent 1 before update: 3
-reward agent 1 before update: 0
-next state agent 1 before update: (2, 2)
-agent1 not hit !!!!!
-Action for Agent 0 from problem solver
-Action for Agent 1 from problem solver
-state agent 0 before update: (0, 4)
-action agent 0 before update: 0
-reward agent 0 before update: -1
-next state agent 0 before update: (0, 4)
-agent0 not hit !!!!!
-state agent 1 before update: (2, 2)
-action agent 1 before update: 4
-reward agent 1 before update: -1
-next state agent 1 before update: (3, 2)
-agent1 hit !!!!!
-Action for Agent 0 from problem solver
-Action for Agent 1 from problem solver
-state agent 0 before update: (0, 4)
-action agent 0 before update: 2
-reward agent 0 before update: -1
-next state agent 0 before update: (0, 4)
-agent0 not hit !!!!!
-state agent 1 before update: (3, 2)
-action agent 1 before update: 3
-reward agent 1 before update: 0
-next state agent 1 before update: (2, 2)
-agent1 not hit !!!!!
-Action for Agent 0 from problem solver
-Action for Agent 1 from problem solver
-state agent 0 before update: (0, 4)
-action agent 0 before update: 3
-reward agent 0 before update: -1
-next state agent 0 before update: (0, 4)
-agent0 not hit !!!!!
-state agent 1 before update: (2, 2)
-action agent 1 before update: 2
-reward agent 1 before update: -1
-next state agent 1 before update: (2, 3)
-agent1 hit !!!!!
-Action for Agent 0 from problem solver
-Action for Agent 1 from problem solver
-state agent 0 before update: (0, 4)
-action agent 0 before update: 0
-reward agent 0 before update: -1
-next state agent 0 before update: (0, 4)
-agent0 not hit !!!!!
-state agent 1 before update: (2, 3)
-action agent 1 before update: 2
-reward agent 1 before update: -1
-next state agent 1 before update: (2, 4)
-agent1 not hit !!!!!
-Action for Agent 0 from problem solver
-Action for Agent 1 from problem solver
-state agent 0 before update: (0, 4)
-action agent 0 before update: 1
-reward agent 0 before update: -1
-next state agent 0 before update: (0, 3)
-agent0 not hit !!!!!
-state agent 1 before update: (2, 4)
-action agent 1 before update: 4
-reward agent 1 before update: -1
-next state agent 1 before update: (3, 4)
-agent1 not hit !!!!!
-Action for Agent 0 from problem solver
-Action for Agent 1 from problem solver
-state agent 0 before update: (0, 3)
-action agent 0 before update: 4
-reward agent 0 before update: -1
-next state agent 0 before update: (1, 3)
-agent0 not hit !!!!!
-state agent 1 before update: (3, 4)
-action agent 1 before update: 2
-reward agent 1 before update: -1
-next state agent 1 before update: (3, 4)
-agent1 not hit !!!!!
-Action for Agent 0 from problem solver
-Action for Agent 1 from problem solver
-state agent 0 before update: (1, 3)
-action agent 0 before update: 3
-reward agent 0 before update: -1
-next state agent 0 before update: (0, 3)
-agent0 not hit !!!!!
-state agent 1 before update: (3, 4)
-action agent 1 before update: 4
-reward agent 1 before update: -1
-next state agent 1 before update: (4, 4)
-agent1 not hit !!!!!
-Action for Agent 0 from problem solver
-Action for Agent 1 from problem solver
-state agent 0 before update: (0, 3)
-action agent 0 before update: 2
-reward agent 0 before update: -1
-next state agent 0 before update: (0, 4)
-agent0 not hit !!!!!
-state agent 1 before update: (4, 4)
-action agent 1 before update: 3
-reward agent 1 before update: -1
-next state agent 1 before update: (3, 4)
-agent1 not hit !!!!!
-Action for Agent 0 from problem solver
-Action for Agent 1 from problem solver
-state agent 0 before update: (0, 4)
-action agent 0 before update: 4
-reward agent 0 before update: -1
-next state agent 0 before update: (1, 4)
-agent0 not hit !!!!!
-state agent 1 before update: (3, 4)
-action agent 1 before update: 3
-reward agent 1 before update: -1
-next state agent 1 before update: (2, 4)
-agent1 not hit !!!!!
-Action for Agent 0 from problem solver
-Action for Agent 1 from problem solver
-state agent 0 before update: (1, 4)
-action agent 0 before update: 2
-reward agent 0 before update: -1
-next state agent 0 before update: (1, 4)
-agent0 not hit !!!!!
-state agent 1 before update: (2, 4)
-action agent 1 before update: 1
-reward agent 1 before update: -1
-next state agent 1 before update: (2, 3)
-agent1 not hit !!!!!
-Action for Agent 0 from problem solver
-Action for Agent 1 from problem solver
-state agent 0 before update: (1, 4)
-action agent 0 before update: 2
-reward agent 0 before update: -1
-next state agent 0 before update: (1, 4)
-agent0 not hit !!!!!
-state agent 1 before update: (2, 3)
-action agent 1 before update: 0
-reward agent 1 before update: -1
-next state agent 1 before update: (2, 3)
-agent1 not hit !!!!!
-Action for Agent 0 from problem solver
-Action for Agent 1 from problem solver
-state agent 0 before update: (1, 4)
-action agent 0 before update: 4
-reward agent 0 before update: -1
-next state agent 0 before update: (2, 4)
-agent0 not hit !!!!!
-state agent 1 before update: (2, 3)
-action agent 1 before update: 4
-reward agent 1 before update: -1
-next state agent 1 before update: (3, 3)
-agent1 not hit !!!!!
-Action for Agent 0 from problem solver
-Action for Agent 1 from problem solver
-state agent 0 before update: (2, 4)
-action agent 0 before update: 3
-reward agent 0 before update: -1
-next state agent 0 before update: (1, 4)
-agent0 not hit !!!!!
-state agent 1 before update: (3, 3)
-action agent 1 before update: 1
-reward agent 1 before update: -1
-next state agent 1 before update: (3, 2)
-agent1 not hit !!!!!
-Action for Agent 0 from problem solver
-Action for Agent 1 from problem solver
-state agent 0 before update: (1, 4)
-action agent 0 before update: 4
-reward agent 0 before update: -1
-next state agent 0 before update: (2, 4)
-agent0 not hit !!!!!
-state agent 1 before update: (3, 2)
-action agent 1 before update: 3
-reward agent 1 before update: 0
-next state agent 1 before update: (2, 2)
-agent1 not hit !!!!!
-Action for Agent 0 from problem solver
-Action for Agent 1 from problem solver
-state agent 0 before update: (2, 4)
-action agent 0 before update: 4
-reward agent 0 before update: -1
-next state agent 0 before update: (3, 4)
-agent0 not hit !!!!!
-state agent 1 before update: (2, 2)
-action agent 1 before update: 4
-reward agent 1 before update: -1
-next state agent 1 before update: (3, 2)
-agent1 hit !!!!!
-Action for Agent 0 from problem solver
-Action for Agent 1 from problem solver
-state agent 0 before update: (3, 4)
-action agent 0 before update: 2
-reward agent 0 before update: -1
-next state agent 0 before update: (3, 4)
-agent0 not hit !!!!!
-state agent 1 before update: (3, 2)
-action agent 1 before update: 3
-reward agent 1 before update: 0
-next state agent 1 before update: (2, 2)
-agent1 not hit !!!!!
-Action for Agent 0 from problem solver
-Action for Agent 1 from problem solver
-state agent 0 before update: (3, 4)
-action agent 0 before update: 4
-reward agent 0 before update: -1
-next state agent 0 before update: (4, 4)
-agent0 not hit !!!!!
-state agent 1 before update: (2, 2)
-action agent 1 before update: 4
-reward agent 1 before update: -1
-next state agent 1 before update: (3, 2)
-agent1 hit !!!!!
-Action for Agent 0 from problem solver
-Action for Agent 1 from problem solver
-state agent 0 before update: (4, 4)
-action agent 0 before update: 4
-reward agent 0 before update: -1
-next state agent 0 before update: (4, 4)
-agent0 not hit !!!!!
-state agent 1 before update: (3, 2)
-action agent 1 before update: 3
-reward agent 1 before update: 0
-next state agent 1 before update: (2, 2)
-agent1 not hit !!!!!
-Action for Agent 0 from problem solver
-Action for Agent 1 from problem solver
-state agent 0 before update: (4, 4)
-action agent 0 before update: 2
-reward agent 0 before update: -1
-next state agent 0 before update: (4, 4)
-agent0 not hit !!!!!
-state agent 1 before update: (2, 2)
-action agent 1 before update: 4
-reward agent 1 before update: -1
-next state agent 1 before update: (3, 2)
-agent1 hit !!!!!
-Action for Agent 0 from problem solver
-Action for Agent 1 from problem solver
-state agent 0 before update: (4, 4)
-action agent 0 before update: 0
-reward agent 0 before update: -1
-next state agent 0 before update: (4, 4)
-agent0 not hit !!!!!
-state agent 1 before update: (3, 2)
-action agent 1 before update: 1
-reward agent 1 before update: -1
-next state agent 1 before update: (3, 1)
-agent1 not hit !!!!!
-Action for Agent 0 from problem solver
-Action for Agent 1 from problem solver
-state agent 0 before update: (4, 4)
-action agent 0 before update: 1
-reward agent 0 before update: -1
-next state agent 0 before update: (4, 3)
-agent0 not hit !!!!!
-state agent 1 before update: (3, 1)
-action agent 1 before update: 2
-reward agent 1 before update: -1
-next state agent 1 before update: (3, 2)
-agent1 not hit !!!!!
-Action for Agent 0 from problem solver
-Action for Agent 1 from problem solver
-state agent 0 before update: (4, 3)
-action agent 0 before update: 2
-reward agent 0 before update: -1
-next state agent 0 before update: (4, 4)
-agent0 not hit !!!!!
-state agent 1 before update: (3, 2)
-action agent 1 before update: 3
-reward agent 1 before update: 0
-next state agent 1 before update: (2, 2)
-agent1 not hit !!!!!
-Action for Agent 0 from problem solver
-Action for Agent 1 from problem solver
-state agent 0 before update: (4, 4)
-action agent 0 before update: 3
-reward agent 0 before update: -1
-next state agent 0 before update: (3, 4)
-agent0 not hit !!!!!
-state agent 1 before update: (2, 2)
-action agent 1 before update: 4
-reward agent 1 before update: -1
-next state agent 1 before update: (3, 2)
-agent1 hit !!!!!
-Action for Agent 0 from problem solver
-Action for Agent 1 from problem solver
-state agent 0 before update: (3, 4)
-action agent 0 before update: 3
-reward agent 0 before update: -1
-next state agent 0 before update: (2, 4)
-agent0 not hit !!!!!
-state agent 1 before update: (3, 2)
-action agent 1 before update: 3
-reward agent 1 before update: 0
-next state agent 1 before update: (2, 2)
-agent1 not hit !!!!!
-Action for Agent 0 from problem solver
-Action for Agent 1 from problem solver
-state agent 0 before update: (2, 4)
-action agent 0 before update: 0
-reward agent 0 before update: -1
-next state agent 0 before update: (2, 4)
-agent0 not hit !!!!!
-state agent 1 before update: (2, 2)
-action agent 1 before update: 0
-reward agent 1 before update: 0
-next state agent 1 before update: (2, 2)
-agent1 hit !!!!!
-Action for Agent 0 from problem solver
-Action for Agent 1 from problem solver
-state agent 0 before update: (2, 4)
-action agent 0 before update: 1
-reward agent 0 before update: -1
-next state agent 0 before update: (2, 3)
-agent0 not hit !!!!!
-state agent 1 before update: (2, 2)
-action agent 1 before update: 0
-reward agent 1 before update: 0
-next state agent 1 before update: (2, 2)
-agent1 hit !!!!!
-Action for Agent 0 from problem solver
-Action for Agent 1 from problem solver
-state agent 0 before update: (2, 3)
-action agent 0 before update: 1
-reward agent 0 before update: 100
-next state agent 0 before update: (2, 2)
-agent0 not hit !!!!!
-state agent 1 before update: (2, 2)
-action agent 1 before update: 0
-reward agent 1 before update: 100
-next state agent 1 before update: (2, 2)
-agent1 hit !!!!!
-Action for Agent 0 from problem solver
-Action for Agent 1 from problem solver
-state agent 0 before update: (2, 2)
-action agent 0 before update: 0
-reward agent 0 before update: 0
-next state agent 0 before update: (2, 2)
-agent0 hit !!!!!
-state agent 1 before update: (2, 2)
-action agent 1 before update: 0
-reward agent 1 before update: 0
-next state agent 1 before update: (2, 2)
-agent1 hit !!!!!
-Episode: 10, Total Steps: 48, Total Rewards: [54, 76], Status Episode: True
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "Action for Agent 0 from problem solver\n",
+    "Action for Agent 1 from problem solver\n",
+    "state agent 0 before update: (0, 0)\n",
+    "action agent 0 before update: 0\n",
+    "reward agent 0 before update: -1\n",
+    "next state agent 0 before update: (0, 0)\n",
+    "agent0 not hit !!!!!\n",
+    "state agent 1 before update: (4, 0)\n",
+    "action agent 1 before update: 2\n",
+    "reward agent 1 before update: -1\n",
+    "next state agent 1 before update: (4, 1)\n",
+    "agent1 not hit !!!!!\n",
+    "Action for Agent 0 from problem solver\n",
+    "Action for Agent 1 from problem solver\n",
+    "state agent 0 before update: (0, 0)\n",
+    "action agent 0 before update: 1\n",
+    "reward agent 0 before update: -1\n",
+    "next state agent 0 before update: (0, 0)\n",
+    "agent0 not hit !!!!!\n",
+    "state agent 1 before update: (4, 1)\n",
+    "action agent 1 before update: 4\n",
+    "reward agent 1 before update: -1\n",
+    "next state agent 1 before update: (4, 1)\n",
+    "agent1 not hit !!!!!\n",
+    "Action for Agent 0 from problem solver\n",
+    "Action for Agent 1 from problem solver\n",
+    "state agent 0 before update: (0, 0)\n",
+    "action agent 0 before update: 3\n",
+    "reward agent 0 before update: -1\n",
+    "next state agent 0 before update: (0, 0)\n",
+    "agent0 not hit !!!!!\n",
+    "state agent 1 before update: (4, 1)\n",
+    "action agent 1 before update: 0\n",
+    "reward agent 1 before update: -1\n",
+    "next state agent 1 before update: (4, 1)\n",
+    "agent1 not hit !!!!!\n",
+    "Action for Agent 0 from problem solver\n",
+    "Action for Agent 1 from problem solver\n",
+    "state agent 0 before update: (0, 0)\n",
+    "action agent 0 before update: 4\n",
+    "reward agent 0 before update: -1\n",
+    "next state agent 0 before update: (1, 0)\n",
+    "agent0 not hit !!!!!\n",
+    "state agent 1 before update: (4, 1)\n",
+    "action agent 1 before update: 1\n",
+    "reward agent 1 before update: -1\n",
+    "next state agent 1 before update: (4, 0)\n",
+    "agent1 not hit !!!!!\n",
+    "Action for Agent 0 from problem solver\n",
+    "Action for Agent 1 from problem solver\n",
+    "state agent 0 before update: (1, 0)\n",
+    "action agent 0 before update: 2\n",
+    "reward agent 0 before update: -1\n",
+    "next state agent 0 before update: (1, 1)\n",
+    "agent0 not hit !!!!!\n",
+    "state agent 1 before update: (4, 0)\n",
+    "action agent 1 before update: 3\n",
+    "reward agent 1 before update: -1\n",
+    "next state agent 1 before update: (3, 0)\n",
+    "agent1 not hit !!!!!\n",
+    "Action for Agent 0 from problem solver\n",
+    "Action for Agent 1 from problem solver\n",
+    "state agent 0 before update: (1, 1)\n",
+    "action agent 0 before update: 0\n",
+    "reward agent 0 before update: -1\n",
+    "next state agent 0 before update: (1, 1)\n",
+    "agent0 not hit !!!!!\n",
+    "state agent 1 before update: (3, 0)\n",
+    "action agent 1 before update: 0\n",
+    "reward agent 1 before update: -1\n",
+    "next state agent 1 before update: (3, 0)\n",
+    "agent1 not hit !!!!!\n",
+    "Action for Agent 0 from problem solver\n",
+    "Action for Agent 1 from problem solver\n",
+    "state agent 0 before update: (1, 1)\n",
+    "action agent 0 before update: 3\n",
+    "reward agent 0 before update: -1\n",
+    "next state agent 0 before update: (0, 1)\n",
+    "agent0 not hit !!!!!\n",
+    "state agent 1 before update: (3, 0)\n",
+    "action agent 1 before update: 4\n",
+    "reward agent 1 before update: -1\n",
+    "next state agent 1 before update: (4, 0)\n",
+    "agent1 not hit !!!!!\n",
+    "Action for Agent 0 from problem solver\n",
+    "Action for Agent 1 from problem solver\n",
+    "state agent 0 before update: (0, 1)\n",
+    "action agent 0 before update: 1\n",
+    "reward agent 0 before update: -1\n",
+    "next state agent 0 before update: (0, 0)\n",
+    "agent0 not hit !!!!!\n",
+    "state agent 1 before update: (4, 0)\n",
+    "action agent 1 before update: 4\n",
+    "reward agent 1 before update: -1\n",
+    "next state agent 1 before update: (4, 0)\n",
+    "agent1 not hit !!!!!\n",
+    "Action for Agent 0 from problem solver\n",
+    "Action for Agent 1 from problem solver\n",
+    "state agent 0 before update: (0, 0)\n",
+    "action agent 0 before update: 0\n",
+    "reward agent 0 before update: -1\n",
+    "next state agent 0 before update: (0, 0)\n",
+    "agent0 not hit !!!!!\n",
+    "state agent 1 before update: (4, 0)\n",
+    "action agent 1 before update: 1\n",
+    "reward agent 1 before update: -1\n",
+    "next state agent 1 before update: (4, 0)\n",
+    "agent1 not hit !!!!!\n",
+    "Action for Agent 0 from problem solver\n",
+    "Action for Agent 1 from problem solver\n",
+    "state agent 0 before update: (0, 0)\n",
+    "action agent 0 before update: 2\n",
+    "reward agent 0 before update: -1\n",
+    "next state agent 0 before update: (0, 1)\n",
+    "agent0 not hit !!!!!\n",
+    "state agent 1 before update: (4, 0)\n",
+    "action agent 1 before update: 0\n",
+    "reward agent 1 before update: -1\n",
+    "next state agent 1 before update: (4, 0)\n",
+    "agent1 not hit !!!!!\n",
+    "Action for Agent 0 from problem solver\n",
+    "Action for Agent 1 from problem solver\n",
+    "state agent 0 before update: (0, 1)\n",
+    "action agent 0 before update: 3\n",
+    "reward agent 0 before update: -1\n",
+    "next state agent 0 before update: (0, 1)\n",
+    "agent0 not hit !!!!!\n",
+    "state agent 1 before update: (4, 0)\n",
+    "action agent 1 before update: 3\n",
+    "reward agent 1 before update: -1\n",
+    "next state agent 1 before update: (3, 0)\n",
+    "agent1 not hit !!!!!\n",
+    "Action for Agent 0 from problem solver\n",
+    "Action for Agent 1 from problem solver\n",
+    "state agent 0 before update: (0, 1)\n",
+    "action agent 0 before update: 0\n",
+    "reward agent 0 before update: -1\n",
+    "next state agent 0 before update: (0, 1)\n",
+    "agent0 not hit !!!!!\n",
+    "state agent 1 before update: (3, 0)\n",
+    "action agent 1 before update: 2\n",
+    "reward agent 1 before update: -1\n",
+    "next state agent 1 before update: (3, 1)\n",
+    "agent1 not hit !!!!!\n",
+    "Action for Agent 0 from problem solver\n",
+    "Action for Agent 1 from problem solver\n",
+    "state agent 0 before update: (0, 1)\n",
+    "action agent 0 before update: 0\n",
+    "reward agent 0 before update: -1\n",
+    "next state agent 0 before update: (0, 1)\n",
+    "agent0 not hit !!!!!\n",
+    "state agent 1 before update: (3, 1)\n",
+    "action agent 1 before update: 2\n",
+    "reward agent 1 before update: -1\n",
+    "next state agent 1 before update: (3, 2)\n",
+    "agent1 not hit !!!!!\n",
+    "Action for Agent 0 from problem solver\n",
+    "Action for Agent 1 from problem solver\n",
+    "state agent 0 before update: (0, 1)\n",
+    "action agent 0 before update: 2\n",
+    "reward agent 0 before update: -1\n",
+    "next state agent 0 before update: (0, 2)\n",
+    "agent0 not hit !!!!!\n",
+    "state agent 1 before update: (3, 2)\n",
+    "action agent 1 before update: 3\n",
+    "reward agent 1 before update: 10\n",
+    "next state agent 1 before update: (2, 2)\n",
+    "agent1 not hit !!!!!\n",
+    "Action for Agent 0 from problem solver\n",
+    "Action for Agent 1 from problem solver\n",
+    "state agent 0 before update: (0, 2)\n",
+    "action agent 0 before update: 2\n",
+    "reward agent 0 before update: -1\n",
+    "next state agent 0 before update: (0, 3)\n",
+    "agent0 not hit !!!!!\n",
+    "state agent 1 before update: (2, 2)\n",
+    "action agent 1 before update: 4\n",
+    "reward agent 1 before update: -1\n",
+    "next state agent 1 before update: (3, 2)\n",
+    "agent1 hit !!!!!\n",
+    "Action for Agent 0 from problem solver\n",
+    "Action for Agent 1 from problem solver\n",
+    "state agent 0 before update: (0, 3)\n",
+    "action agent 0 before update: 3\n",
+    "reward agent 0 before update: -1\n",
+    "next state agent 0 before update: (0, 3)\n",
+    "agent0 not hit !!!!!\n",
+    "state agent 1 before update: (3, 2)\n",
+    "action agent 1 before update: 3\n",
+    "reward agent 1 before update: 0\n",
+    "next state agent 1 before update: (2, 2)\n",
+    "agent1 not hit !!!!!\n",
+    "Action for Agent 0 from problem solver\n",
+    "Action for Agent 1 from problem solver\n",
+    "state agent 0 before update: (0, 3)\n",
+    "action agent 0 before update: 0\n",
+    "reward agent 0 before update: -1\n",
+    "next state agent 0 before update: (0, 3)\n",
+    "agent0 not hit !!!!!\n",
+    "state agent 1 before update: (2, 2)\n",
+    "action agent 1 before update: 4\n",
+    "reward agent 1 before update: -1\n",
+    "next state agent 1 before update: (3, 2)\n",
+    "agent1 hit !!!!!\n",
+    "Action for Agent 0 from problem solver\n",
+    "Action for Agent 1 from problem solver\n",
+    "state agent 0 before update: (0, 3)\n",
+    "action agent 0 before update: 2\n",
+    "reward agent 0 before update: -1\n",
+    "next state agent 0 before update: (0, 4)\n",
+    "agent0 not hit !!!!!\n",
+    "state agent 1 before update: (3, 2)\n",
+    "action agent 1 before update: 3\n",
+    "reward agent 1 before update: 0\n",
+    "next state agent 1 before update: (2, 2)\n",
+    "agent1 not hit !!!!!\n",
+    "Action for Agent 0 from problem solver\n",
+    "Action for Agent 1 from problem solver\n",
+    "state agent 0 before update: (0, 4)\n",
+    "action agent 0 before update: 2\n",
+    "reward agent 0 before update: -1\n",
+    "next state agent 0 before update: (0, 4)\n",
+    "agent0 not hit !!!!!\n",
+    "state agent 1 before update: (2, 2)\n",
+    "action agent 1 before update: 4\n",
+    "reward agent 1 before update: -1\n",
+    "next state agent 1 before update: (3, 2)\n",
+    "agent1 hit !!!!!\n",
+    "Action for Agent 0 from problem solver\n",
+    "Action for Agent 1 from problem solver\n",
+    "state agent 0 before update: (0, 4)\n",
+    "action agent 0 before update: 3\n",
+    "reward agent 0 before update: -1\n",
+    "next state agent 0 before update: (0, 4)\n",
+    "agent0 not hit !!!!!\n",
+    "state agent 1 before update: (3, 2)\n",
+    "action agent 1 before update: 3\n",
+    "reward agent 1 before update: 0\n",
+    "next state agent 1 before update: (2, 2)\n",
+    "agent1 not hit !!!!!\n",
+    "Action for Agent 0 from problem solver\n",
+    "Action for Agent 1 from problem solver\n",
+    "state agent 0 before update: (0, 4)\n",
+    "action agent 0 before update: 0\n",
+    "reward agent 0 before update: -1\n",
+    "next state agent 0 before update: (0, 4)\n",
+    "agent0 not hit !!!!!\n",
+    "state agent 1 before update: (2, 2)\n",
+    "action agent 1 before update: 4\n",
+    "reward agent 1 before update: -1\n",
+    "next state agent 1 before update: (3, 2)\n",
+    "agent1 hit !!!!!\n",
+    "Action for Agent 0 from problem solver\n",
+    "Action for Agent 1 from problem solver\n",
+    "state agent 0 before update: (0, 4)\n",
+    "action agent 0 before update: 2\n",
+    "reward agent 0 before update: -1\n",
+    "next state agent 0 before update: (0, 4)\n",
+    "agent0 not hit !!!!!\n",
+    "state agent 1 before update: (3, 2)\n",
+    "action agent 1 before update: 3\n",
+    "reward agent 1 before update: 0\n",
+    "next state agent 1 before update: (2, 2)\n",
+    "agent1 not hit !!!!!\n",
+    "Action for Agent 0 from problem solver\n",
+    "Action for Agent 1 from problem solver\n",
+    "state agent 0 before update: (0, 4)\n",
+    "action agent 0 before update: 3\n",
+    "reward agent 0 before update: -1\n",
+    "next state agent 0 before update: (0, 4)\n",
+    "agent0 not hit !!!!!\n",
+    "state agent 1 before update: (2, 2)\n",
+    "action agent 1 before update: 2\n",
+    "reward agent 1 before update: -1\n",
+    "next state agent 1 before update: (2, 3)\n",
+    "agent1 hit !!!!!\n",
+    "Action for Agent 0 from problem solver\n",
+    "Action for Agent 1 from problem solver\n",
+    "state agent 0 before update: (0, 4)\n",
+    "action agent 0 before update: 0\n",
+    "reward agent 0 before update: -1\n",
+    "next state agent 0 before update: (0, 4)\n",
+    "agent0 not hit !!!!!\n",
+    "state agent 1 before update: (2, 3)\n",
+    "action agent 1 before update: 2\n",
+    "reward agent 1 before update: -1\n",
+    "next state agent 1 before update: (2, 4)\n",
+    "agent1 not hit !!!!!\n",
+    "Action for Agent 0 from problem solver\n",
+    "Action for Agent 1 from problem solver\n",
+    "state agent 0 before update: (0, 4)\n",
+    "action agent 0 before update: 1\n",
+    "reward agent 0 before update: -1\n",
+    "next state agent 0 before update: (0, 3)\n",
+    "agent0 not hit !!!!!\n",
+    "state agent 1 before update: (2, 4)\n",
+    "action agent 1 before update: 4\n",
+    "reward agent 1 before update: -1\n",
+    "next state agent 1 before update: (3, 4)\n",
+    "agent1 not hit !!!!!\n",
+    "Action for Agent 0 from problem solver\n",
+    "Action for Agent 1 from problem solver\n",
+    "state agent 0 before update: (0, 3)\n",
+    "action agent 0 before update: 4\n",
+    "reward agent 0 before update: -1\n",
+    "next state agent 0 before update: (1, 3)\n",
+    "agent0 not hit !!!!!\n",
+    "state agent 1 before update: (3, 4)\n",
+    "action agent 1 before update: 2\n",
+    "reward agent 1 before update: -1\n",
+    "next state agent 1 before update: (3, 4)\n",
+    "agent1 not hit !!!!!\n",
+    "Action for Agent 0 from problem solver\n",
+    "Action for Agent 1 from problem solver\n",
+    "state agent 0 before update: (1, 3)\n",
+    "action agent 0 before update: 3\n",
+    "reward agent 0 before update: -1\n",
+    "next state agent 0 before update: (0, 3)\n",
+    "agent0 not hit !!!!!\n",
+    "state agent 1 before update: (3, 4)\n",
+    "action agent 1 before update: 4\n",
+    "reward agent 1 before update: -1\n",
+    "next state agent 1 before update: (4, 4)\n",
+    "agent1 not hit !!!!!\n",
+    "Action for Agent 0 from problem solver\n",
+    "Action for Agent 1 from problem solver\n",
+    "state agent 0 before update: (0, 3)\n",
+    "action agent 0 before update: 2\n",
+    "reward agent 0 before update: -1\n",
+    "next state agent 0 before update: (0, 4)\n",
+    "agent0 not hit !!!!!\n",
+    "state agent 1 before update: (4, 4)\n",
+    "action agent 1 before update: 3\n",
+    "reward agent 1 before update: -1\n",
+    "next state agent 1 before update: (3, 4)\n",
+    "agent1 not hit !!!!!\n",
+    "Action for Agent 0 from problem solver\n",
+    "Action for Agent 1 from problem solver\n",
+    "state agent 0 before update: (0, 4)\n",
+    "action agent 0 before update: 4\n",
+    "reward agent 0 before update: -1\n",
+    "next state agent 0 before update: (1, 4)\n",
+    "agent0 not hit !!!!!\n",
+    "state agent 1 before update: (3, 4)\n",
+    "action agent 1 before update: 3\n",
+    "reward agent 1 before update: -1\n",
+    "next state agent 1 before update: (2, 4)\n",
+    "agent1 not hit !!!!!\n",
+    "Action for Agent 0 from problem solver\n",
+    "Action for Agent 1 from problem solver\n",
+    "state agent 0 before update: (1, 4)\n",
+    "action agent 0 before update: 2\n",
+    "reward agent 0 before update: -1\n",
+    "next state agent 0 before update: (1, 4)\n",
+    "agent0 not hit !!!!!\n",
+    "state agent 1 before update: (2, 4)\n",
+    "action agent 1 before update: 1\n",
+    "reward agent 1 before update: -1\n",
+    "next state agent 1 before update: (2, 3)\n",
+    "agent1 not hit !!!!!\n",
+    "Action for Agent 0 from problem solver\n",
+    "Action for Agent 1 from problem solver\n",
+    "state agent 0 before update: (1, 4)\n",
+    "action agent 0 before update: 2\n",
+    "reward agent 0 before update: -1\n",
+    "next state agent 0 before update: (1, 4)\n",
+    "agent0 not hit !!!!!\n",
+    "state agent 1 before update: (2, 3)\n",
+    "action agent 1 before update: 0\n",
+    "reward agent 1 before update: -1\n",
+    "next state agent 1 before update: (2, 3)\n",
+    "agent1 not hit !!!!!\n",
+    "Action for Agent 0 from problem solver\n",
+    "Action for Agent 1 from problem solver\n",
+    "state agent 0 before update: (1, 4)\n",
+    "action agent 0 before update: 4\n",
+    "reward agent 0 before update: -1\n",
+    "next state agent 0 before update: (2, 4)\n",
+    "agent0 not hit !!!!!\n",
+    "state agent 1 before update: (2, 3)\n",
+    "action agent 1 before update: 4\n",
+    "reward agent 1 before update: -1\n",
+    "next state agent 1 before update: (3, 3)\n",
+    "agent1 not hit !!!!!\n",
+    "Action for Agent 0 from problem solver\n",
+    "Action for Agent 1 from problem solver\n",
+    "state agent 0 before update: (2, 4)\n",
+    "action agent 0 before update: 3\n",
+    "reward agent 0 before update: -1\n",
+    "next state agent 0 before update: (1, 4)\n",
+    "agent0 not hit !!!!!\n",
+    "state agent 1 before update: (3, 3)\n",
+    "action agent 1 before update: 1\n",
+    "reward agent 1 before update: -1\n",
+    "next state agent 1 before update: (3, 2)\n",
+    "agent1 not hit !!!!!\n",
+    "Action for Agent 0 from problem solver\n",
+    "Action for Agent 1 from problem solver\n",
+    "state agent 0 before update: (1, 4)\n",
+    "action agent 0 before update: 4\n",
+    "reward agent 0 before update: -1\n",
+    "next state agent 0 before update: (2, 4)\n",
+    "agent0 not hit !!!!!\n",
+    "state agent 1 before update: (3, 2)\n",
+    "action agent 1 before update: 3\n",
+    "reward agent 1 before update: 0\n",
+    "next state agent 1 before update: (2, 2)\n",
+    "agent1 not hit !!!!!\n",
+    "Action for Agent 0 from problem solver\n",
+    "Action for Agent 1 from problem solver\n",
+    "state agent 0 before update: (2, 4)\n",
+    "action agent 0 before update: 4\n",
+    "reward agent 0 before update: -1\n",
+    "next state agent 0 before update: (3, 4)\n",
+    "agent0 not hit !!!!!\n",
+    "state agent 1 before update: (2, 2)\n",
+    "action agent 1 before update: 4\n",
+    "reward agent 1 before update: -1\n",
+    "next state agent 1 before update: (3, 2)\n",
+    "agent1 hit !!!!!\n",
+    "Action for Agent 0 from problem solver\n",
+    "Action for Agent 1 from problem solver\n",
+    "state agent 0 before update: (3, 4)\n",
+    "action agent 0 before update: 2\n",
+    "reward agent 0 before update: -1\n",
+    "next state agent 0 before update: (3, 4)\n",
+    "agent0 not hit !!!!!\n",
+    "state agent 1 before update: (3, 2)\n",
+    "action agent 1 before update: 3\n",
+    "reward agent 1 before update: 0\n",
+    "next state agent 1 before update: (2, 2)\n",
+    "agent1 not hit !!!!!\n",
+    "Action for Agent 0 from problem solver\n",
+    "Action for Agent 1 from problem solver\n",
+    "state agent 0 before update: (3, 4)\n",
+    "action agent 0 before update: 4\n",
+    "reward agent 0 before update: -1\n",
+    "next state agent 0 before update: (4, 4)\n",
+    "agent0 not hit !!!!!\n",
+    "state agent 1 before update: (2, 2)\n",
+    "action agent 1 before update: 4\n",
+    "reward agent 1 before update: -1\n",
+    "next state agent 1 before update: (3, 2)\n",
+    "agent1 hit !!!!!\n",
+    "Action for Agent 0 from problem solver\n",
+    "Action for Agent 1 from problem solver\n",
+    "state agent 0 before update: (4, 4)\n",
+    "action agent 0 before update: 4\n",
+    "reward agent 0 before update: -1\n",
+    "next state agent 0 before update: (4, 4)\n",
+    "agent0 not hit !!!!!\n",
+    "state agent 1 before update: (3, 2)\n",
+    "action agent 1 before update: 3\n",
+    "reward agent 1 before update: 0\n",
+    "next state agent 1 before update: (2, 2)\n",
+    "agent1 not hit !!!!!\n",
+    "Action for Agent 0 from problem solver\n",
+    "Action for Agent 1 from problem solver\n",
+    "state agent 0 before update: (4, 4)\n",
+    "action agent 0 before update: 2\n",
+    "reward agent 0 before update: -1\n",
+    "next state agent 0 before update: (4, 4)\n",
+    "agent0 not hit !!!!!\n",
+    "state agent 1 before update: (2, 2)\n",
+    "action agent 1 before update: 4\n",
+    "reward agent 1 before update: -1\n",
+    "next state agent 1 before update: (3, 2)\n",
+    "agent1 hit !!!!!\n",
+    "Action for Agent 0 from problem solver\n",
+    "Action for Agent 1 from problem solver\n",
+    "state agent 0 before update: (4, 4)\n",
+    "action agent 0 before update: 0\n",
+    "reward agent 0 before update: -1\n",
+    "next state agent 0 before update: (4, 4)\n",
+    "agent0 not hit !!!!!\n",
+    "state agent 1 before update: (3, 2)\n",
+    "action agent 1 before update: 1\n",
+    "reward agent 1 before update: -1\n",
+    "next state agent 1 before update: (3, 1)\n",
+    "agent1 not hit !!!!!\n",
+    "Action for Agent 0 from problem solver\n",
+    "Action for Agent 1 from problem solver\n",
+    "state agent 0 before update: (4, 4)\n",
+    "action agent 0 before update: 1\n",
+    "reward agent 0 before update: -1\n",
+    "next state agent 0 before update: (4, 3)\n",
+    "agent0 not hit !!!!!\n",
+    "state agent 1 before update: (3, 1)\n",
+    "action agent 1 before update: 2\n",
+    "reward agent 1 before update: -1\n",
+    "next state agent 1 before update: (3, 2)\n",
+    "agent1 not hit !!!!!\n",
+    "Action for Agent 0 from problem solver\n",
+    "Action for Agent 1 from problem solver\n",
+    "state agent 0 before update: (4, 3)\n",
+    "action agent 0 before update: 2\n",
+    "reward agent 0 before update: -1\n",
+    "next state agent 0 before update: (4, 4)\n",
+    "agent0 not hit !!!!!\n",
+    "state agent 1 before update: (3, 2)\n",
+    "action agent 1 before update: 3\n",
+    "reward agent 1 before update: 0\n",
+    "next state agent 1 before update: (2, 2)\n",
+    "agent1 not hit !!!!!\n",
+    "Action for Agent 0 from problem solver\n",
+    "Action for Agent 1 from problem solver\n",
+    "state agent 0 before update: (4, 4)\n",
+    "action agent 0 before update: 3\n",
+    "reward agent 0 before update: -1\n",
+    "next state agent 0 before update: (3, 4)\n",
+    "agent0 not hit !!!!!\n",
+    "state agent 1 before update: (2, 2)\n",
+    "action agent 1 before update: 4\n",
+    "reward agent 1 before update: -1\n",
+    "next state agent 1 before update: (3, 2)\n",
+    "agent1 hit !!!!!\n",
+    "Action for Agent 0 from problem solver\n",
+    "Action for Agent 1 from problem solver\n",
+    "state agent 0 before update: (3, 4)\n",
+    "action agent 0 before update: 3\n",
+    "reward agent 0 before update: -1\n",
+    "next state agent 0 before update: (2, 4)\n",
+    "agent0 not hit !!!!!\n",
+    "state agent 1 before update: (3, 2)\n",
+    "action agent 1 before update: 3\n",
+    "reward agent 1 before update: 0\n",
+    "next state agent 1 before update: (2, 2)\n",
+    "agent1 not hit !!!!!\n",
+    "Action for Agent 0 from problem solver\n",
+    "Action for Agent 1 from problem solver\n",
+    "state agent 0 before update: (2, 4)\n",
+    "action agent 0 before update: 0\n",
+    "reward agent 0 before update: -1\n",
+    "next state agent 0 before update: (2, 4)\n",
+    "agent0 not hit !!!!!\n",
+    "state agent 1 before update: (2, 2)\n",
+    "action agent 1 before update: 0\n",
+    "reward agent 1 before update: 0\n",
+    "next state agent 1 before update: (2, 2)\n",
+    "agent1 hit !!!!!\n",
+    "Action for Agent 0 from problem solver\n",
+    "Action for Agent 1 from problem solver\n",
+    "state agent 0 before update: (2, 4)\n",
+    "action agent 0 before update: 1\n",
+    "reward agent 0 before update: -1\n",
+    "next state agent 0 before update: (2, 3)\n",
+    "agent0 not hit !!!!!\n",
+    "state agent 1 before update: (2, 2)\n",
+    "action agent 1 before update: 0\n",
+    "reward agent 1 before update: 0\n",
+    "next state agent 1 before update: (2, 2)\n",
+    "agent1 hit !!!!!\n",
+    "Action for Agent 0 from problem solver\n",
+    "Action for Agent 1 from problem solver\n",
+    "state agent 0 before update: (2, 3)\n",
+    "action agent 0 before update: 1\n",
+    "reward agent 0 before update: 100\n",
+    "next state agent 0 before update: (2, 2)\n",
+    "agent0 not hit !!!!!\n",
+    "state agent 1 before update: (2, 2)\n",
+    "action agent 1 before update: 0\n",
+    "reward agent 1 before update: 100\n",
+    "next state agent 1 before update: (2, 2)\n",
+    "agent1 hit !!!!!\n",
+    "Action for Agent 0 from problem solver\n",
+    "Action for Agent 1 from problem solver\n",
+    "state agent 0 before update: (2, 2)\n",
+    "action agent 0 before update: 0\n",
+    "reward agent 0 before update: 0\n",
+    "next state agent 0 before update: (2, 2)\n",
+    "agent0 hit !!!!!\n",
+    "state agent 1 before update: (2, 2)\n",
+    "action agent 1 before update: 0\n",
+    "reward agent 1 before update: 0\n",
+    "next state agent 1 before update: (2, 2)\n",
+    "agent1 hit !!!!!\n"
+   ]
+  }
+ ],
+ "metadata": {
+  "language_info": {
+   "name": "python"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}

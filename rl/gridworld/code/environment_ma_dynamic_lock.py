@@ -21,7 +21,7 @@ class Env(tk.Tk):
         self.shapes = self.load_images()
         self.grid_colors = [[(255, 255, 255)] * WIDTH for _ in range(HEIGHT)]
         self.texts = []
-        self.obstacle_direction = 1  # 1 for moving right, -1 for moving left
+        self.episode_count = 0  # Initialize episode counter
 
         # Multi-agent setup
         self.num_agents = num_agents
@@ -29,6 +29,7 @@ class Env(tk.Tk):
         self.messages = []
         self.first_agent_reached = False
         self.mega_bonus_given = False
+        self.locked = [False] * self.num_agents  # Track locked agents
         self.init_agents()
         self.canvas = self._build_canvas()
 
@@ -87,6 +88,13 @@ class Env(tk.Tk):
         self.messages = [None] * len(self.agents)
         self.first_agent_reached = False
         self.mega_bonus_given = False
+        self.locked = [False] * self.num_agents  # Reset locked status
+
+        self.episode_count += 1  # Increment episode counter
+
+        # Move obstacles every 100 episodes
+        if self.episode_count % 100 == 0:
+            self.move_obstacles()
 
         observations = []
         win_state = False
@@ -103,110 +111,91 @@ class Env(tk.Tk):
 
         return observations
 
+    def move_obstacles(self):
+        # Generate random positions for the obstacles
+        positions = []
+        while len(positions) < 2:
+            x = np.random.randint(0, WIDTH) * UNIT + UNIT / 2
+            y = np.random.randint(0, HEIGHT) * UNIT + UNIT / 2
+            new_pos = (x, y)
+            if new_pos not in positions:  # Ensure no overlap
+                positions.append(new_pos)
+
+        # Set the new positions for the obstacles
+        self.canvas.coords(self.triangle1, positions[0][0], positions[0][1])
+        self.canvas.coords(self.triangle2, positions[1][0], positions[1][1])
+
     def step(self, actions):
         rewards = []
         dones = []
         wins = []
         next_states = []
-        agents_reached_target = 0
-        
         
         self.update_grid_colors()
         circle_pos = self.get_circle_grid_position()
-        
-        reward_position = 0
-        reward_bonus = 0
-        reward = 0
-        done = False
-        win = False
 
         for idx, (agent, action) in enumerate(zip(self.agents, actions)):
+            if self.locked[idx]:  # If agent is locked, skip action processing
+                rewards.append(0)
+                dones.append(self.locked[idx])
+                wins.append(False)
+                next_states.append([self.coords_to_state(agent['coords']), False, None])
+                continue
+
             state = agent['coords']
             base_action = np.array([0, 0])
-            message = None
             physical_action = action[0]
 
-            if physical_action == 0:
+            if physical_action == 0:  # stay
                 base_action[0] = base_action[0]
                 base_action[1] = base_action[1]
             elif physical_action == 1:  # up
-                if state[1] > UNIT:
+                if state[1] > UNIT:  # Prevent moving out of the top boundary
                     base_action[1] -= UNIT
             elif physical_action == 2:  # down
-                if state[1] < (HEIGHT - 1) * UNIT:
+                if state[1] < (HEIGHT - 1) * UNIT:  # Prevent moving out of the bottom boundary
                     base_action[1] += UNIT
             elif physical_action == 3:  # left
-                if state[0] > UNIT:
+                if state[0] > UNIT:  # Prevent moving out of the left boundary
                     base_action[0] -= UNIT
             elif physical_action == 4:  # right
-                if state[0] < (WIDTH - 1) * UNIT:
+                if state[0] < (WIDTH - 1) * UNIT:  # Prevent moving out of the right boundary
                     base_action[0] += UNIT
-
-            initial_pos = self.coords_to_state(state)
-            initial_distance = abs(initial_pos[0] - circle_pos[0]) + abs(initial_pos[1] - circle_pos[1])
 
             self.canvas.move(agent['image_obj'], base_action[0], base_action[1])
             self.canvas.tag_raise(agent['image_obj'])
             next_state = self.canvas.coords(agent['image_obj'])
             
             new_pos = self.coords_to_state(next_state)
-            new_distance = abs(new_pos[0] - circle_pos[0]) + abs(new_pos[1] - circle_pos[1])
 
-            reward_position = initial_distance - new_distance
-
-            if next_state == self.canvas.coords(self.circle):  # Agent hits the target
-                agents_reached_target += 1
-                if not self.first_agent_reached:
-                    reward_bonus = 100
-                    self.first_agent_reached = True
-                else:
-                    reward_bonus = 0
-                reward_bonus = 100
-                done = False
-                win = True
-                self.update_grid_colors((0, 0, 255))
-            elif next_state in [self.canvas.coords(self.triangle1), self.canvas.coords(self.triangle2)]:  # Agent hits an obstacle
-                reward_bonus = -10
-                done = True
-                win = False
-                self.update_grid_colors((255, 0, 0))
+            if new_pos == self.coords_to_state(self.canvas.coords(self.circle)):  # Agent reaches the target
+                rewards.append(100)
+                dones.append(True)
+                wins.append(True)
+                self.locked[idx] = True  # Lock the agent
+            elif new_pos in [self.coords_to_state(self.canvas.coords(self.triangle1)), self.coords_to_state(self.canvas.coords(self.triangle2))]:  # Agent hits an obstacle
+                rewards.append(-10)
+                dones.append(True)
+                wins.append(False)
+                self.locked[idx] = True  # Lock the agent
             else:
-                reward_bonus = -1
-            
-            reward = reward_bonus
-            # reward = reward_bonus + reward_position
+                rewards.append(-1)
+                dones.append(False)
+                wins.append(False)
 
-            rewards.append(reward)
-            dones.append(done)
-            wins.append(win)
+            next_states.append([new_pos, wins[-1], None])  # Updated next_state includes win flag
 
-            agent['coords'] = next_state
-            next_state_obs = self.coords_to_state(next_state)
-            
-
-            next_state_comms = []
-            if not self.is_agent_silent:
-                for other_agent in self.agents:
-                    if other_agent == agent:
-                        continue
-
-                    other_agent_message = actions[other_agent['id']][1]
-                    next_state_comms.append(other_agent_message)
-
-            next_state_observation = [next_state_obs, win, next_state_comms]
-
-            next_states.append(next_state_observation)
-        
-        if all(wins):
-            self.update_grid_colors((0, 255, 0))
-
-        if agents_reached_target == self.num_agents and not self.mega_bonus_given:
+        # If all agents reach the target, give mega bonus
+        if all(wins) and not self.mega_bonus_given:
             for i in range(len(rewards)):
                 rewards[i] += 1000  # Mega bonus
             self.mega_bonus_given = True
-           
+            self.update_grid_colors((0, 255, 0))
 
-        # self.render()
+        # End the episode if all agents are locked
+        if all(self.locked):
+            dones = [True] * self.num_agents
+
         return next_states, rewards, dones
 
     def render(self):
