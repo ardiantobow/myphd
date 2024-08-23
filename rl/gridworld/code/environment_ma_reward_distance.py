@@ -109,7 +109,7 @@ class Env(tk.Tk):
         wins = []
         next_states = []
         agents_reached_target = 0
-        self.render()
+        
         
         self.update_grid_colors()
         circle_pos = self.get_circle_grid_position()
@@ -158,11 +158,12 @@ class Env(tk.Tk):
             if next_state == self.canvas.coords(self.circle):  # Agent hits the target
                 agents_reached_target += 1
                 if not self.first_agent_reached:
-                    reward_bonus = 10
+                    reward_bonus = 100
                     self.first_agent_reached = True
                 else:
                     reward_bonus = 0
-
+                reward_bonus = 100
+                done = False
                 win = True
                 self.update_grid_colors((0, 0, 255))
             elif next_state in [self.canvas.coords(self.triangle1), self.canvas.coords(self.triangle2)]:  # Agent hits an obstacle
@@ -174,6 +175,7 @@ class Env(tk.Tk):
                 reward_bonus = -1
             
             reward = reward_bonus
+            # reward = reward_bonus + reward_position
 
             rewards.append(reward)
             dones.append(done)
@@ -193,17 +195,21 @@ class Env(tk.Tk):
             next_state_observation = [next_state_obs, win, next_state_comms]
 
             next_states.append(next_state_observation)
+        
+        if all(wins):
+            self.update_grid_colors((0, 255, 0))
 
         if agents_reached_target == self.num_agents and not self.mega_bonus_given:
             for i in range(len(rewards)):
-                rewards[i] += 100  # Mega bonus
+                rewards[i] += 1000  # Mega bonus
             self.mega_bonus_given = True
-            self.update_grid_colors((0, 255, 0))
+           
 
+        # self.render()
         return next_states, rewards, dones
 
     def render(self):
-        time.sleep(0.03)
+        time.sleep(0.05)
         self.update()
 
     def update_grid_colors(self, color=(255, 255, 255)):

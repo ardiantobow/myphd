@@ -1,0 +1,185 @@
+Action for Agent 0 from case base
+Action for Agent 1 from case base
+state agent 0 before update: (0, 0)
+action agent 0 before update: 2
+reward agent 0 before update: -1
+next state agent 0 before update: (0, 1)
+agent0 not hit !!!!!
+state agent 1 before update: (4, 0)
+action agent 1 before update: 3
+reward agent 1 before update: -1
+next state agent 1 before update: (3, 0)
+agent1 not hit !!!!!
+Action for Agent 0 from case base
+Action for Agent 1 from case base
+state agent 0 before update: (0, 1)
+action agent 0 before update: 2
+reward agent 0 before update: -1
+next state agent 0 before update: (0, 2)
+agent0 not hit !!!!!
+state agent 1 before update: (3, 0)
+action agent 1 before update: 2
+reward agent 1 before update: -1
+next state agent 1 before update: (3, 1)
+agent1 not hit !!!!!
+Action for Agent 0 from case base
+Action for Agent 1 from case base
+state agent 0 before update: (0, 2)
+action agent 0 before update: 2
+reward agent 0 before update: -1
+next state agent 0 before update: (0, 3)
+agent0 not hit !!!!!
+state agent 1 before update: (3, 1)
+action agent 1 before update: 2
+reward agent 1 before update: -1
+next state agent 1 before update: (3, 2)
+agent1 not hit !!!!!
+Action for Agent 0 from case base
+Action for Agent 1 from case base
+state agent 0 before update: (0, 3)
+action agent 0 before update: 2
+reward agent 0 before update: -1
+next state agent 0 before update: (0, 4)
+agent0 not hit !!!!!
+state agent 1 before update: (3, 2)
+action agent 1 before update: 3
+reward agent 1 before update: 10
+next state agent 1 before update: (2, 2)
+agent1 not hit !!!!!
+Action for Agent 0 from case base
+Action for Agent 1 from case base
+state agent 0 before update: (0, 4)
+action agent 0 before update: 4
+reward agent 0 before update: -1
+next state agent 0 before update: (1, 4)
+agent0 not hit !!!!!
+state agent 1 before update: (2, 2)
+action agent 1 before update: 3
+reward agent 1 before update: -10
+next state agent 1 before update: (1, 2)
+agent1 hit !!!!!
+Episode: 11, Total Steps: 5, Total Rewards: [-5, -3], Status Episode: False
+--------------------
+Action for Agent 0 from case base
+Action for Agent 1 from case base
+state agent 0 before update: (0, 0)
+action agent 0 before update: 2
+reward agent 0 before update: -1
+next state agent 0 before update: (0, 1)
+agent0 not hit !!!!!
+state agent 1 before update: (4, 0)
+action agent 1 before update: 3
+reward agent 1 before update: -1
+next state agent 1 before update: (3, 0)
+agent1 not hit !!!!!
+Action for Agent 0 from case base
+Action for Agent 1 from case base
+state agent 0 before update: (0, 1)
+action agent 0 before update: 2
+reward agent 0 before update: -1
+next state agent 0 before update: (0, 2)
+agent0 not hit !!!!!
+state agent 1 before update: (3, 0)
+action agent 1 before update: 2
+reward agent 1 before update: -1
+next state agent 1 before update: (3, 1)
+agent1 not hit !!!!!
+Action for Agent 0 from case base
+Action for Agent 1 from case base
+state agent 0 before update: (0, 2)
+action agent 0 before update: 2
+reward agent 0 before update: -1
+next state agent 0 before update: (0, 3)
+agent0 not hit !!!!!
+state agent 1 before update: (3, 1)
+action agent 1 before update: 2
+reward agent 1 before update: -1
+next state agent 1 before update: (3, 2)
+agent1 not hit !!!!!
+Action for Agent 0 from case base
+Action for Agent 1 from case base
+state agent 0 before update: (0, 3)
+action agent 0 before update: 2
+reward agent 0 before update: -1
+next state agent 0 before update: (0, 4)
+agent0 not hit !!!!!
+state agent 1 before update: (3, 2)
+action agent 1 before update: 3
+reward agent 1 before update: 10
+next state agent 1 before update: (2, 2)
+agent1 not hit !!!!!
+Action for Agent 0 from case base
+Action for Agent 1 from case base
+state agent 0 before update: (0, 4)
+action agent 0 before update: 4
+reward agent 0 before update: -1
+next state agent 0 before update: (1, 4)
+agent0 not hit !!!!!
+state agent 1 before update: (2, 2)
+action agent 1 before update: 3
+reward agent 1 before update: -10
+next state agent 1 before update: (1, 2)
+agent1 hit !!!!!
+Episode: 12, Total Steps: 5, Total Rewards: [-5, -3], Status Episode: False
+--------------------
+Action for Agent 0 from case base
+Action for Agent 1 from case base
+state agent 0 before update: (0, 0)
+action agent 0 before update: 2
+reward agent 0 before update: -1
+next state agent 0 before update: (0, 1)
+agent0 not hit !!!!!
+state agent 1 before update: (4, 0)
+action agent 1 before update: 3
+reward agent 1 before update: -1
+next state agent 1 before update: (3, 0)
+agent1 not hit !!!!!
+Action for Agent 0 from case base
+Action for Agent 1 from case base
+state agent 0 before update: (0, 1)
+action agent 0 before update: 2
+reward agent 0 before update: -1
+next state agent 0 before update: (0, 2)
+agent0 not hit !!!!!
+state agent 1 before update: (3, 0)
+action agent 1 before update: 2
+reward agent 1 before update: -1
+next state agent 1 before update: (3, 1)
+agent1 not hit !!!!!
+Action for Agent 0 from case base
+Action for Agent 1 from case base
+state agent 0 before update: (0, 2)
+action agent 0 before update: 2
+reward agent 0 before update: -1
+next state agent 0 before update: (0, 3)
+agent0 not hit !!!!!
+state agent 1 before update: (3, 1)
+action agent 1 before update: 2
+reward agent 1 before update: -1
+next state agent 1 before update: (3, 2)
+agent1 not hit !!!!!
+Action for Agent 0 from case base
+Action for Agent 1 from case base
+state agent 0 before update: (0, 3)
+action agent 0 before update: 2
+reward agent 0 before update: -1
+next state agent 0 before update: (0, 4)
+agent0 not hit !!!!!
+state agent 1 before update: (3, 2)
+action agent 1 before update: 3
+reward agent 1 before update: 10
+next state agent 1 before update: (2, 2)
+agent1 not hit !!!!!
+Action for Agent 0 from case base
+Action for Agent 1 from case base
+state agent 0 before update: (0, 4)
+action agent 0 before update: 4
+reward agent 0 before update: -1
+next state agent 0 before update: (1, 4)
+agent0 not hit !!!!!
+state agent 1 before update: (2, 2)
+action agent 1 before update: 3
+reward agent 1 before update: -10
+next state agent 1 before update: (1, 2)
+agent1 hit !!!!!
+Episode: 13, Total Steps: 5, Total Rewards: [-5, -3], Status Episode: False
