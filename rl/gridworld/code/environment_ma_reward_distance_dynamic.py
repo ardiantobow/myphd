@@ -153,7 +153,8 @@ class Env(tk.Tk):
             if self.locked[idx]:  # If agent is locked, skip action processing
                 rewards.append(0)
                 dones.append(self.locked[idx])
-                next_states.append([self.coords_to_state(agent['coords']), False, None])
+                wins.append(win)
+                next_states.append([self.coords_to_state(agent['coords']), win, None])
                 continue
 
             state = agent['coords']
@@ -238,18 +239,22 @@ class Env(tk.Tk):
 
             agent['coords'] = next_state
         
-        if all(wins):
-            self.update_grid_colors((0, 255, 0))
-            self.win_flag = True
 
         if agents_reached_target == self.num_agents and not self.mega_bonus_given:
             for i in range(len(rewards)):
                 rewards[i] += 1000  # Mega bonus
             self.mega_bonus_given = True
-           
+        
+        print(f"win situation in the environment: {wins}")
+
         if all(self.locked):
+            if all(wins):
+                self.update_grid_colors((0, 255, 0))
+                self.win_flag = True
             dones = [True] * self.num_agents
             self.locked = [False] * self.num_agents
+        
+        
 
         # self.render()
         return next_states, rewards, dones
