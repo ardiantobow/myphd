@@ -11,7 +11,7 @@ WIDTH = 5  # grid width
 
 
 class Env(tk.Tk):
-    def __init__(self, num_agents=2, is_agent_silent=False):
+    def __init__(self, num_agents=2, num_obstacles=2, obstacles_random_steps=20, is_agent_silent=False):
         super(Env, self).__init__()
         self.action_space = ['s', 'u', 'd', 'l', 'r']
         self.n_actions = len(self.action_space)
@@ -25,8 +25,11 @@ class Env(tk.Tk):
 
         # Multi-agent setup
         self.num_agents = num_agents
+        self.num_obstacles = num_obstacles  # Number of obstacles is now dynamic
+        self.obstacles_random_steps = obstacles_random_steps
         self.agents = []
         self.messages = []
+        self.obstacles = []  # List to hold obstacle objects
         self.first_agent_reached = False
         self.mega_bonus_given = False
         self.win_flag = False
@@ -59,9 +62,26 @@ class Env(tk.Tk):
         for agent in self.agents:
             agent['image_obj'] = canvas.create_image(agent['coords'][0], agent['coords'][1], image=agent['image'])
 
-        self.triangle1 = canvas.create_image(250, 150, image=self.shapes[1])
-        self.triangle2 = canvas.create_image(150, 250, image=self.shapes[1])
-        self.circle = canvas.create_image(250, 250, image=self.shapes[2])
+        # Initialize obstacles at specific locations
+        obstacle_positions = [
+            (450, 150),  # Coordinates for the first obstacle
+            (150, 450),  # Coordinates for the second obstacle
+            (150, 350),  # Coordinates for the third obstacle
+            (250, 250)   # Coordinates for the fourth obstacle
+        ]
+
+        for i in range(self.num_obstacles):
+            if i < len(obstacle_positions):
+                pos = obstacle_positions[i]
+            else:
+                # If more obstacles than default positions, randomly place within the grid without overlapping agents
+                x = np.random.randint(0, WIDTH) * UNIT + UNIT / 2
+                y = np.random.randint(0, HEIGHT) * UNIT + UNIT / 2
+                pos = (x, y)
+            obstacle = canvas.create_image(pos[0], pos[1], image=self.shapes[1])
+            self.obstacles.append(obstacle)
+
+        self.circle = canvas.create_image(450, 450, image=self.shapes[2])
 
         canvas.pack()
         return canvas
@@ -95,8 +115,8 @@ class Env(tk.Tk):
 
         self.episode_count += 1  # Increment episode counter
 
-        # Move obstacles every 100 episodes
-        if self.episode_count % 25 == 0:
+        # Move obstacles every 20 episodes
+        if self.episode_count % self.obstacles_random_steps == 0:
             self.move_obstacles()
 
         observations = []
@@ -120,7 +140,7 @@ class Env(tk.Tk):
         
         positions = []
         
-        while len(positions) < 2:
+        while len(positions) < self.num_obstacles:
             x = np.random.randint(0, WIDTH) * UNIT + UNIT / 2
             y = np.random.randint(0, HEIGHT) * UNIT + UNIT / 2
             new_pos = (x, y)
@@ -130,9 +150,9 @@ class Env(tk.Tk):
                 positions.append(new_pos)
         
         # Set the new positions for the obstacles
-        self.canvas.coords(self.triangle1, positions[0][0], positions[0][1])
-        self.canvas.coords(self.triangle2, positions[1][0], positions[1][1])
-
+        for i, obstacle in enumerate(self.obstacles):
+            if i < len(positions):
+                self.canvas.coords(obstacle, positions[i][0], positions[i][1])
 
     def step(self, actions):
         rewards = []
@@ -149,7 +169,6 @@ class Env(tk.Tk):
         reward_bonus = 0
         reward = 0
         done = False
-        # win = False
 
         for idx, (agent, action) in enumerate(zip(self.agents, actions)):
 
@@ -204,12 +223,12 @@ class Env(tk.Tk):
                     reward_bonus = 0
 
                 reward_bonus = 100
-                done = False # problem for case base
+                done = False
                 self.win[idx] = True
-                self.locked[idx] = True #problem for case base
+                self.locked[idx] = True
                 self.update_grid_colors((0, 0, 255))
                 
-            elif next_state in [self.canvas.coords(self.triangle1), self.canvas.coords(self.triangle2)]:  # Agent hits an obstacle
+            elif next_state in [self.canvas.coords(obstacle) for obstacle in self.obstacles]:  # Agent hits an obstacle
                 reward_bonus = -10
                 done = False
                 self.win[idx] = False
@@ -217,11 +236,8 @@ class Env(tk.Tk):
                 self.update_grid_colors((255, 0, 0))
             else:
                 reward_bonus = -1
-                # done = False
-                # win = win
             
             reward = reward_bonus
-            # reward = reward_bonus + reward_position
 
             rewards.append(reward)
             dones.append(done)
@@ -251,22 +267,16 @@ class Env(tk.Tk):
                 rewards[i] += 100  # Mega bonus
             self.mega_bonus_given = True
         
-        # print(f"win one agent situation in the environment: {wins}")
         print(f"wins all agent situation in the environment: {wins}")
-        # print(f"All wins value from all agent situation in the environment: {all(wins)}")
 
         if all(wins):
-                # print(f"win flag value before updated {self.win_flag}")
                 self.update_grid_colors((0, 255, 0))
                 self.win_flag = True
-                # print(f"win flag value after updated {self.win_flag}")
                 
         if all(self.locked):
-            # print(f"All wins after locked value check from all agent situation in the environment: {all(wins)}")
             dones = [True] * self.num_agents
             self.locked = [False] * self.num_agents
         
-        # self.render()
         return next_states, rewards, dones
 
     def render(self):
@@ -302,6 +312,6 @@ class Env(tk.Tk):
 
 
 if __name__ == "__main__":
-    env = Env()
+    # Specify the number of obstacles dynamically
+    env = Env() 
     env.mainloop()
-
