@@ -96,7 +96,7 @@ class Env(tk.Tk):
         self.episode_count += 1  # Increment episode counter
 
         # Move obstacles every 100 episodes
-        if self.episode_count % 15 == 0:
+        if self.episode_count % 25 == 0:
             self.move_obstacles()
 
         observations = []
@@ -252,7 +252,7 @@ class Env(tk.Tk):
             self.mega_bonus_given = True
         
         # print(f"win one agent situation in the environment: {wins}")
-        # print(f"wins all agent situation in the environment: {wins}")
+        print(f"wins all agent situation in the environment: {wins}")
         # print(f"All wins value from all agent situation in the environment: {all(wins)}")
 
         if all(wins):
