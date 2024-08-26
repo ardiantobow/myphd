@@ -29,10 +29,12 @@ class Env(tk.Tk):
         self.messages = []
         self.first_agent_reached = False
         self.mega_bonus_given = False
-        self.locked = [False] * self.num_agents 
+        self.win_flag = False
+        self.locked = [False] * self.num_agents
+        self.win = [False] * self.num_agents  
         self.init_agents()
         self.canvas = self._build_canvas()
-        self.win_flag = False
+        
 
     def init_agents(self):
         self.agents = []
@@ -94,7 +96,7 @@ class Env(tk.Tk):
         self.episode_count += 1  # Increment episode counter
 
         # Move obstacles every 100 episodes
-        if self.episode_count % 100 == 0:
+        if self.episode_count % 15 == 0:
             self.move_obstacles()
 
         observations = []
@@ -138,6 +140,7 @@ class Env(tk.Tk):
         wins = []
         next_states = []
         agents_reached_target = 0
+        self.win_flag = False
         
         self.update_grid_colors()
         circle_pos = self.get_circle_grid_position()
@@ -146,15 +149,16 @@ class Env(tk.Tk):
         reward_bonus = 0
         reward = 0
         done = False
-        win = False
+        # win = False
 
         for idx, (agent, action) in enumerate(zip(self.agents, actions)):
 
             if self.locked[idx]:  # If agent is locked, skip action processing
                 rewards.append(0)
                 dones.append(self.locked[idx])
-                wins.append(win)
-                next_states.append([self.coords_to_state(agent['coords']), win, None])
+                wins.append(self.win[idx])
+                next_states.append([self.coords_to_state(agent['coords']), self.win[idx], None])
+                print(f"agent {idx} is locked. Done status: {self.locked[idx]}, win status: {self.win[idx]}")
                 continue
 
             state = agent['coords']
@@ -201,27 +205,27 @@ class Env(tk.Tk):
 
                 reward_bonus = 100
                 done = False # problem for case base
-                win = True
+                self.win[idx] = True
                 self.locked[idx] = True #problem for case base
                 self.update_grid_colors((0, 0, 255))
                 
             elif next_state in [self.canvas.coords(self.triangle1), self.canvas.coords(self.triangle2)]:  # Agent hits an obstacle
                 reward_bonus = -10
                 done = False
-                win = False
+                self.win[idx] = False
                 self.locked[idx] = True
                 self.update_grid_colors((255, 0, 0))
             else:
                 reward_bonus = -1
                 # done = False
-                # win = False
+                # win = win
             
             reward = reward_bonus
             # reward = reward_bonus + reward_position
 
             rewards.append(reward)
             dones.append(done)
-            wins.append(win)
+            wins.append(self.win[idx])
             
             next_state_obs = self.coords_to_state(next_state)
             next_state_comms = []
@@ -233,29 +237,35 @@ class Env(tk.Tk):
                     other_agent_message = actions[other_agent['id']][1]
                     next_state_comms.append(other_agent_message)
 
-            next_state_observation = [next_state_obs, win, next_state_comms]
+            next_state_observation = [next_state_obs, self.win[idx], next_state_comms]
 
             next_states.append(next_state_observation)
 
             agent['coords'] = next_state
+
+            print(f"win status agent {idx} = {self.win[idx]}")
         
 
         if agents_reached_target == self.num_agents and not self.mega_bonus_given:
             for i in range(len(rewards)):
-                rewards[i] += 1000  # Mega bonus
+                rewards[i] += 100  # Mega bonus
             self.mega_bonus_given = True
         
-        print(f"win situation in the environment: {wins}")
+        # print(f"win one agent situation in the environment: {wins}")
+        # print(f"wins all agent situation in the environment: {wins}")
+        # print(f"All wins value from all agent situation in the environment: {all(wins)}")
 
-        if all(self.locked):
-            if all(wins):
+        if all(wins):
+                # print(f"win flag value before updated {self.win_flag}")
                 self.update_grid_colors((0, 255, 0))
                 self.win_flag = True
+                # print(f"win flag value after updated {self.win_flag}")
+                
+        if all(self.locked):
+            # print(f"All wins after locked value check from all agent situation in the environment: {all(wins)}")
             dones = [True] * self.num_agents
             self.locked = [False] * self.num_agents
         
-        
-
         # self.render()
         return next_states, rewards, dones
 
