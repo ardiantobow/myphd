@@ -37,7 +37,7 @@ class Env(tk.Tk):
         self.win = [False] * self.num_agents  
         self.init_agents()
         self.canvas = self._build_canvas()
-        
+        self.next_state_comms = [[] for _ in range(self.num_agents)]
 
     def init_agents(self):
         self.agents = []
@@ -111,7 +111,9 @@ class Env(tk.Tk):
         self.messages = [None] * len(self.agents)
         self.first_agent_reached = False
         self.mega_bonus_given = False
-        self.locked = [False] * self.num_agents 
+        self.locked = [False] * self.num_agents
+        self.win = [False] * self.num_agents
+        self.next_state_comms = [[0] for _ in range(self.num_agents)]  # Initialize with zero communication state 
 
         self.episode_count += 1  # Increment episode counter
 
@@ -124,9 +126,9 @@ class Env(tk.Tk):
         for agent in self.agents:
             state = self.coords_to_state(agent['coords'])
             if self.is_agent_silent:
-                communication_observation = None
+                communication_observation = []
             else:
-                communication_observation = None  # Placeholder for communication
+                communication_observation = []  # Placeholder for communication
             
             observation = [state, win_state, communication_observation]
 
@@ -169,6 +171,7 @@ class Env(tk.Tk):
         reward_bonus = 0
         reward = 0
         done = False
+        # self.next_state_comms=[]
 
         for idx, (agent, action) in enumerate(zip(self.agents, actions)):
 
@@ -176,7 +179,7 @@ class Env(tk.Tk):
                 rewards.append(0)
                 dones.append(self.locked[idx])
                 wins.append(self.win[idx])
-                next_states.append([self.coords_to_state(agent['coords']), self.win[idx], None])
+                next_states.append([self.coords_to_state(agent['coords']), self.win[idx], self.next_state_comms[idx]])
                 print(f"agent {idx} is locked. Done status: {self.locked[idx]}, win status: {self.win[idx]}")
                 continue
 
@@ -216,17 +219,18 @@ class Env(tk.Tk):
             if next_state == self.canvas.coords(self.circle):  # Agent hits the target
                 
                 agents_reached_target += 1
-                if not self.first_agent_reached:
-                    reward_bonus = 100
-                    self.first_agent_reached = True
-                else:
-                    reward_bonus = 0
+                # if not self.first_agent_reached:
+                #     reward_bonus = 10
+                #     self.first_agent_reached = True
+                # else:
+                #     reward_bonus = 0
 
-                reward_bonus = 100
+                reward_bonus = 50
                 done = False
                 self.win[idx] = True
                 self.locked[idx] = True
                 self.update_grid_colors((0, 0, 255))
+                print(f"agent {idx} reach the target!")
                 
             elif next_state in [self.canvas.coords(obstacle) for obstacle in self.obstacles]:  # Agent hits an obstacle
                 reward_bonus = -10
@@ -234,9 +238,15 @@ class Env(tk.Tk):
                 self.win[idx] = False
                 self.locked[idx] = True
                 self.update_grid_colors((255, 0, 0))
+                print(f"agent {idx} hit the obstacle!")
             else:
                 reward_bonus = -1
-            
+                done = False
+                self.win[idx] = False
+                self.locked[idx] = False
+                self.update_grid_colors((255, 255, 255))
+                print(f"agent {idx} is ongoing!")
+                
             reward = reward_bonus
 
             rewards.append(reward)
@@ -244,17 +254,19 @@ class Env(tk.Tk):
             wins.append(self.win[idx])
             
             next_state_obs = self.coords_to_state(next_state)
-            next_state_comms = []
+            
             if not self.is_agent_silent:
                 for other_agent in self.agents:
                     if other_agent == agent:
                         continue
 
                     other_agent_message = actions[other_agent['id']][1]
-                    next_state_comms.append(other_agent_message)
+                    self.next_state_comms[idx] = other_agent_message if other_agent_message !=0 else 0
 
-            next_state_observation = [next_state_obs, self.win[idx], next_state_comms]
+            else:
+                self.next_state_comms[idx] = 0
 
+            next_state_observation = [next_state_obs, self.win[idx], self.next_state_comms[idx]]
             next_states.append(next_state_observation)
 
             agent['coords'] = next_state
