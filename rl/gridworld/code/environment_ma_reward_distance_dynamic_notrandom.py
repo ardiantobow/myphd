@@ -6,8 +6,8 @@ from PIL import ImageTk, Image
 np.random.seed(1)
 PhotoImage = ImageTk.PhotoImage
 UNIT = 100  # pixels
-HEIGHT = 10  # grid height
-WIDTH = 10  # grid width
+HEIGHT = 5  # grid height
+WIDTH = 5  # grid width
 
 
 class Env(tk.Tk):
@@ -71,14 +71,20 @@ class Env(tk.Tk):
             (250, 250)   # Coordinates for the fourth obstacle
         ]
 
+        agent_positions = [(agent['coords'][0], agent['coords'][1]) for agent in self.agents]  # Get agents' initial positions
+
         for i in range(self.num_obstacles):
             if i < len(obstacle_positions):
                 pos = obstacle_positions[i]
             else:
                 # If more obstacles than default positions, randomly place within the grid without overlapping agents
-                x = np.random.randint(0, WIDTH) * UNIT + UNIT / 2
-                y = np.random.randint(0, HEIGHT) * UNIT + UNIT / 2
-                pos = (x, y)
+                while True:
+                    x = np.random.randint(0, WIDTH) * UNIT + UNIT / 2
+                    y = np.random.randint(0, HEIGHT) * UNIT + UNIT / 2
+                    pos = (x, y)
+                    if pos not in agent_positions:  # Ensure the obstacle doesn't overlap with agents
+                        break
+
             obstacle = canvas.create_image(pos[0], pos[1], image=self.shapes[1])
             self.obstacles.append(obstacle)
 
@@ -86,6 +92,7 @@ class Env(tk.Tk):
 
         canvas.pack()
         return canvas
+
 
     def load_images(self):
         rectangle = PhotoImage(Image.open("../img/agent.png").resize((65, 65)))
@@ -139,6 +146,8 @@ class Env(tk.Tk):
 
     def move_obstacles(self):
         # Move obstacles in a fixed pattern
+        new_positions = set()  # Set to track new positions of obstacles
+
         for i, obstacle in enumerate(self.obstacles):
             direction = self.obstacle_directions[i % len(self.obstacle_directions)]
             x_move, y_move = direction[0] * UNIT, direction[1] * UNIT
@@ -152,8 +161,29 @@ class Env(tk.Tk):
                 # Reverse direction if an obstacle reaches the boundary
                 self.obstacle_directions[i] = (-direction[0], -direction[1])
                 x_move, y_move = -x_move, -y_move
+                new_x = current_coords[0] + x_move
+                new_y = current_coords[1] + y_move
 
-            self.canvas.move(obstacle, x_move, y_move)
+            # Check if the new position overlaps with any existing obstacles
+            if (new_x, new_y) in new_positions:
+                # Reverse direction if new position is already occupied
+                self.obstacle_directions[i] = (-self.obstacle_directions[i][0], -self.obstacle_directions[i][1])
+                x_move, y_move = -x_move, -y_move
+                new_x = current_coords[0] + x_move
+                new_y = current_coords[1] + y_move
+
+            # Check again for boundaries after reversing direction
+            if new_x < UNIT / 2 or new_x > (WIDTH - 0.5) * UNIT or new_y < UNIT / 2 or new_y > (HEIGHT - 0.5) * UNIT:
+                # Keep within boundaries after reversing
+                new_x = current_coords[0]
+                new_y = current_coords[1]
+
+            # Move the obstacle if the new position is not occupied
+            if (new_x, new_y) not in new_positions:
+                self.canvas.move(obstacle, x_move, y_move)
+                new_positions.add((new_x, new_y))
+
+
 
     def step(self, actions):
         rewards = []
@@ -218,7 +248,7 @@ class Env(tk.Tk):
             if next_state == self.canvas.coords(self.circle):  # Agent hits the target
                 
                 agents_reached_target += 1
-                reward_bonus = 50
+                reward_bonus = 100
                 done = False
                 self.win[idx] = True
                 self.locked[idx] = True
@@ -226,14 +256,14 @@ class Env(tk.Tk):
                 print(f"agent {idx} reach the target!")
                 
             elif next_state in [self.canvas.coords(obstacle) for obstacle in self.obstacles]:  # Agent hits an obstacle
-                reward_bonus = -10
+                reward_bonus = -100
                 done = False
                 self.win[idx] = False
                 self.locked[idx] = True
                 self.update_grid_colors((255, 0, 0))
                 print(f"agent {idx} hit the obstacle!")
             else:
-                reward_bonus = -0.1
+                reward_bonus = -1
                 done = False
                 self.win[idx] = False
                 self.locked[idx] = False
@@ -269,7 +299,7 @@ class Env(tk.Tk):
 
         if agents_reached_target == self.num_agents and not self.mega_bonus_given:
             for i in range(len(rewards)):
-                rewards[i] += 100 # Mega bonus
+                rewards[i] += 0 # Mega bonus
             self.mega_bonus_given = True
         
         print(f"wins all agent situation in the environment: {wins}")
@@ -285,7 +315,7 @@ class Env(tk.Tk):
         return next_states, rewards, dones
 
     def render(self):
-        time.sleep(0.05)
+        time.sleep(0.005)
         self.update()
 
     def update_grid_colors(self, color=(255, 255, 255)):
