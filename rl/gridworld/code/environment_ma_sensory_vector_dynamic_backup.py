@@ -42,8 +42,6 @@ class Env(tk.Tk):
         self.canvas = self._build_canvas()
         self.next_state_comms = [[] for _ in range(self.num_agents)]
 
-        self.protocol("WM_DELETE_WINDOW", self.on_closing)  # Ensure cleanup when closing window
-
     def init_agents(self):
         self.agents = []
         for i in range(self.num_agents):
@@ -383,13 +381,9 @@ class Env(tk.Tk):
         time.sleep(0.0005)
         self.update()
 
-    def destroy_environment(self):
-        self.destroy()
-
-    # Method to handle closing event
-    def on_closing(self):
-        self.destroy_environment()
+    
 
 if __name__ == "__main__":
-    env = Env()
-    env.mainloop()  # Running the main loop for the Tkinter GUI
+    # Specify the number of obstacles dynamically
+    env = Env() 
+    env.mainloop()
