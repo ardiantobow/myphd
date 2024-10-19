@@ -380,7 +380,7 @@ class Env(tk.Tk):
 
 
     def render(self):
-        time.sleep(0.0001)
+        time.sleep(0.000001)
         self.update()
 
     def destroy_environment(self):
