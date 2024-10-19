@@ -34,6 +34,7 @@ class Env(tk.Tk):
         self.initial_agent_positions = []  # To store the initial positions of the agents
         self.messages = []
         self.obstacles = []  # List to hold obstacle objects
+        self.obstacle_positions = []  # Store the positions of obstacles
         self.obstacle_directions = [(1, 0), (0, 1)] * (num_obstacles // 2) + [(-1, 0), (0, -1)] * ((num_obstacles + 1) // 2)
         self.first_agent_reached = False
         self.mega_bonus_given = False
@@ -87,7 +88,7 @@ class Env(tk.Tk):
         # Calculate the center of the environment (target position)
         center_x = (self.WIDTH // 2) * self.UNIT + self.UNIT / 2
         center_y = (self.HEIGHT // 2) * self.UNIT + self.UNIT / 2
-        target_position = (center_x, center_y)  # Store target position
+        self.target_position = (center_x, center_y)  # Store target position
 
         canvas = tk.Canvas(self, bg='white', height=self.HEIGHT * self.UNIT, width=self.WIDTH * self.UNIT)
 
@@ -108,7 +109,6 @@ class Env(tk.Tk):
                                                     fill='blue', outline='black')
 
         # Place obstacles around the target within a specified distance range
-        obstacle_positions = []
         for i in range(self.num_obstacles):
             while True:
                 x_offset = np.random.randint(-self.max_dist, self.max_dist + 1) * self.UNIT
@@ -119,20 +119,17 @@ class Env(tk.Tk):
                     y = center_y + y_offset
                     pos = (x, y)
                     # Ensure that the obstacle is within the specified distance range from the target
-                    distance_from_target = np.linalg.norm(np.array(pos) - np.array(target_position))
+                    distance_from_target = np.linalg.norm(np.array(pos) - np.array(self.target_position))
                     if (self.UNIT / 2 <= x <= (self.WIDTH - 0.5) * self.UNIT and
                         self.UNIT / 2 <= y <= (self.HEIGHT - 0.5) * self.UNIT and
                         self.min_obstacle_distance_from_target * self.UNIT <= distance_from_target <= self.max_obstacle_distance_from_target * self.UNIT and
-                        pos not in obstacle_positions):  # Ensure obstacles do not overlap
-                        obstacle_positions.append(pos)
+                        pos not in self.obstacle_positions and pos != self.target_position):  # Ensure obstacles do not overlap with other obstacles or target
+                        self.obstacle_positions.append(pos)
+                        obstacle = canvas.create_rectangle(pos[0] - self.UNIT / 4, pos[1] - self.UNIT / 4,
+                                                           pos[0] + self.UNIT / 4, pos[1] + self.UNIT / 4,
+                                                           fill='red', outline='black')
+                        self.obstacles.append(obstacle)
                         break
-
-        # Properly center obstacles within their grid cells
-        for pos in obstacle_positions:
-            obstacle = canvas.create_rectangle(pos[0] - self.UNIT / 4, pos[1] - self.UNIT / 4,
-                                               pos[0] + self.UNIT / 4, pos[1] + self.UNIT / 4,
-                                               fill='red', outline='black')
-            self.obstacles.append(obstacle)
 
         # Properly center the target within its grid cell
         self.circle = canvas.create_oval(center_x - self.UNIT / 4, center_y - self.UNIT / 4,
@@ -372,30 +369,32 @@ class Env(tk.Tk):
             direction = self.obstacle_directions[i % len(self.obstacle_directions)]
             x_move, y_move = direction[0] * self.UNIT, direction[1] * self.UNIT
 
-            current_coords = self.canvas.coords(obstacle)
+            current_coords = self.obstacle_positions[i]
             new_x = current_coords[0] + x_move
             new_y = current_coords[1] + y_move
 
-            # Check for grid boundaries
-            if new_x < self.UNIT / 2 or new_x > (self.WIDTH - 0.5) * self.UNIT or new_y < self.UNIT / 2 or new_y > (self.HEIGHT - 0.5) * self.UNIT:
-                # Reverse direction if an obstacle reaches the boundary
-                self.obstacle_directions[i] = (-direction[0], -direction[1])
-                x_move, y_move = -x_move, -y_move
-                new_x = current_coords[0] + x_move
-                new_y = current_coords[1] + y_move
+            new_pos = (new_x, new_y)
+            
+            # Calculate the distance of the new position from the target
+            distance_from_target = np.linalg.norm(np.array(new_pos) - np.array(self.target_position))
 
-            # Check if the new position overlaps with any existing obstacles
-            if (new_x, new_y) in new_positions:
-                # Reverse direction if new position is already occupied
-                self.obstacle_directions[i] = (-self.obstacle_directions[i][0], -self.obstacle_directions[i][1])
-                x_move, y_move = -x_move, -y_move
-                new_x = current_coords[0] + x_move
-                new_y = current_coords[1] + y_move
-
-            # Move the obstacle if the new position is not occupied
-            if (new_x, new_y) not in new_positions:
+            # Check for grid boundaries, obstacle overlap, and whether the new position respects the min/max distance from the target
+            if (self.UNIT / 2 <= new_x <= (self.WIDTH - 0.5) * self.UNIT and
+                self.UNIT / 2 <= new_y <= (self.HEIGHT - 0.5) * self.UNIT and
+                self.min_obstacle_distance_from_target * self.UNIT <= distance_from_target <= self.max_obstacle_distance_from_target * self.UNIT and
+                new_pos not in new_positions and 
+                new_pos != self.target_position and  # Ensure it does not overlap with the target
+                new_pos not in self.obstacle_positions):  # Ensure the new position does not overlap with another obstacle
+                
+                # Move the obstacle to the new position
                 self.canvas.move(obstacle, x_move, y_move)
-                new_positions.add((new_x, new_y))
+                new_positions.add(new_pos)
+                self.obstacle_positions[i] = new_pos  # Update the stored position
+            else:
+                # Reverse direction if the new position is not valid (out of bounds, distance violation, overlapping, or target collision)
+                self.obstacle_directions[i] = (-direction[0], -direction[1])
+
+
 
     def render(self):
         time.sleep(0.00001)
