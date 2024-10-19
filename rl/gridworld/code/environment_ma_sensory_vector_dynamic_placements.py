@@ -6,7 +6,7 @@ np.random.seed(1)
 
 class Env(tk.Tk):
     def __init__(self, num_agents=2, num_obstacles=2, obstacles_random_steps=20, is_agent_silent=False, sensory_size=3, gpixels=50, gheight=20, gwidth=20, is_sensor_active=True, 
-                 min_dist=1, max_dist=3, min_obstacle_distance_from_target=2, max_obstacle_distance_from_target=4):
+                 min_obstacle_distance_from_target=1, max_obstacle_distance_from_target=3, min_obstacle_distance_from_agents=2):
         super(Env, self).__init__()
         self.UNIT = gpixels
         self.HEIGHT = gheight
@@ -21,10 +21,11 @@ class Env(tk.Tk):
         self.episode_count = 0  # Initialize episode counter
         self.sensory_size = sensory_size
         self.sensory_grid_on = is_sensor_active
-        self.min_dist = min_dist  # Minimum grid distance from the target
-        self.max_dist = max_dist  # Maximum grid distance from the target
+        self.min_obstacle_distance_from_target = min_obstacle_distance_from_target  # Minimum grid distance from the target
+        self.max_obstacle_distance_from_target = max_obstacle_distance_from_target  # Maximum grid distance from the target
         self.min_obstacle_distance_from_target = min_obstacle_distance_from_target  # Minimum distance from target
         self.max_obstacle_distance_from_target = max_obstacle_distance_from_target  # Maximum distance from target
+        self.min_obstacle_distance_from_agents = min_obstacle_distance_from_agents  # Minimum distance from agents
 
         # Multi-agent setup
         self.num_agents = num_agents
@@ -111,19 +112,30 @@ class Env(tk.Tk):
         # Place obstacles around the target within a specified distance range
         for i in range(self.num_obstacles):
             while True:
-                x_offset = np.random.randint(-self.max_dist, self.max_dist + 1) * self.UNIT
-                y_offset = np.random.randint(-self.max_dist, self.max_dist + 1) * self.UNIT
+                x_offset = np.random.randint(-self.max_obstacle_distance_from_target, self.max_obstacle_distance_from_target + 1) * self.UNIT
+                y_offset = np.random.randint(-self.max_obstacle_distance_from_target, self.max_obstacle_distance_from_target + 1) * self.UNIT
 
-                if abs(x_offset) >= self.min_dist * self.UNIT or abs(y_offset) >= self.min_dist * self.UNIT:
+                if abs(x_offset) >= self.min_obstacle_distance_from_target * self.UNIT or abs(y_offset) >= self.min_obstacle_distance_from_target * self.UNIT:
                     x = center_x + x_offset
                     y = center_y + y_offset
                     pos = (x, y)
-                    # Ensure that the obstacle is within the specified distance range from the target
+
+                    # Calculate the distance of the obstacle from the target
                     distance_from_target = np.linalg.norm(np.array(pos) - np.array(self.target_position))
+
+                    # Check distance from agents
+                    valid_position_from_agents = all(
+                        np.linalg.norm(np.array(pos) - np.array(agent['coords'])) >= self.min_obstacle_distance_from_agents * self.UNIT
+                        for agent in self.agents
+                    )
+
+                    # Ensure that the obstacle is within the distance range from the target and doesn't overlap with agents or other obstacles
                     if (self.UNIT / 2 <= x <= (self.WIDTH - 0.5) * self.UNIT and
                         self.UNIT / 2 <= y <= (self.HEIGHT - 0.5) * self.UNIT and
                         self.min_obstacle_distance_from_target * self.UNIT <= distance_from_target <= self.max_obstacle_distance_from_target * self.UNIT and
-                        pos not in self.obstacle_positions and pos != self.target_position):  # Ensure obstacles do not overlap with other obstacles or target
+                        pos not in self.obstacle_positions and pos != self.target_position and
+                        valid_position_from_agents):
+                        
                         self.obstacle_positions.append(pos)
                         obstacle = canvas.create_rectangle(pos[0] - self.UNIT / 4, pos[1] - self.UNIT / 4,
                                                            pos[0] + self.UNIT / 4, pos[1] + self.UNIT / 4,
@@ -138,6 +150,7 @@ class Env(tk.Tk):
 
         canvas.pack()
         return canvas
+
 
     def reset(self):
         self.update()
@@ -378,22 +391,28 @@ class Env(tk.Tk):
             # Calculate the distance of the new position from the target
             distance_from_target = np.linalg.norm(np.array(new_pos) - np.array(self.target_position))
 
-            # Check for grid boundaries, obstacle overlap, and whether the new position respects the min/max distance from the target
+            # Check distance from agents
+            valid_position_from_agents = all(
+                np.linalg.norm(np.array(new_pos) - np.array(agent['coords'])) >= self.min_obstacle_distance_from_agents * self.UNIT
+                for agent in self.agents
+            )
+
+            # Check for grid boundaries, obstacle overlap, target overlap, and whether the new position respects the min/max distance from the target
             if (self.UNIT / 2 <= new_x <= (self.WIDTH - 0.5) * self.UNIT and
                 self.UNIT / 2 <= new_y <= (self.HEIGHT - 0.5) * self.UNIT and
                 self.min_obstacle_distance_from_target * self.UNIT <= distance_from_target <= self.max_obstacle_distance_from_target * self.UNIT and
                 new_pos not in new_positions and 
                 new_pos != self.target_position and  # Ensure it does not overlap with the target
-                new_pos not in self.obstacle_positions):  # Ensure the new position does not overlap with another obstacle
+                new_pos not in self.obstacle_positions and
+                valid_position_from_agents):  # Ensure it respects the min distance from agents
                 
                 # Move the obstacle to the new position
                 self.canvas.move(obstacle, x_move, y_move)
                 new_positions.add(new_pos)
                 self.obstacle_positions[i] = new_pos  # Update the stored position
             else:
-                # Reverse direction if the new position is not valid (out of bounds, distance violation, overlapping, or target collision)
+                # Reverse direction if the new position is not valid (out of bounds, distance violation, overlapping, or target/agent collision)
                 self.obstacle_directions[i] = (-direction[0], -direction[1])
-
 
 
     def render(self):
