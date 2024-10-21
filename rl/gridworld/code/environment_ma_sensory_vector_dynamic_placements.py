@@ -52,37 +52,71 @@ class Env(tk.Tk):
 
     def init_agents(self):
         self.agents = []
-        # Adjust agent positions based on the number of agents
+        
+        # Predefined positions for the first 4 agents (top-left, top-right, bottom-right, bottom-left)
         if self.num_agents >= 1:
             positions = [
-                [self.UNIT / 2, self.UNIT / 2],  # Top-left
-                [(self.WIDTH - 0.5) * self.UNIT, self.UNIT / 2],  # Top-right
-                [(self.WIDTH - 0.5) * self.UNIT, (self.HEIGHT - 0.5) * self.UNIT],  # Bottom-right
-                [self.UNIT / 2, (self.HEIGHT - 0.5) * self.UNIT],  # Bottom-left
-                [(self.WIDTH // 2) * self.UNIT + self.UNIT / 2, self.UNIT / 2],  # Top-center
-                [(self.WIDTH - 0.5) * self.UNIT, (self.HEIGHT // 2) * self.UNIT + self.UNIT / 2]  # Right-center
+                [self.UNIT / 2, self.UNIT / 2],  # Agent 1: Top-left
+                [(self.WIDTH - 0.5) * self.UNIT, self.UNIT / 2],  # Agent 2: Top-right
+                [(self.WIDTH - 0.5) * self.UNIT, (self.HEIGHT - 0.5) * self.UNIT],  # Agent 3: Bottom-right
+                [self.UNIT / 2, (self.HEIGHT - 0.5) * self.UNIT],  # Agent 4: Bottom-left
             ]
 
-            if self.num_agents > 6:
-                while len(positions) < self.num_agents:
-                    new_positions = []
-                    for i in range(len(positions) - 1):
-                        # Calculate midpoint and snap to the nearest grid center
-                        mid_x = ((positions[i][0] + positions[i + 1][0]) // (2 * self.UNIT)) * self.UNIT + self.UNIT / 2
-                        mid_y = ((positions[i][1] + positions[i + 1][1]) // (2 * self.UNIT)) * self.UNIT + self.UNIT / 2
-                        new_positions.append([mid_x, mid_y])
-                    positions += new_positions[:self.num_agents - len(positions)]
+            # Function to calculate evenly spaced positions along an edge and snap to the grid center
+            def evenly_spaced_positions(start, end, num_agents):
+                positions = []
+                step_x = (end[0] - start[0]) / (num_agents + 1)
+                step_y = (end[1] - start[1]) / (num_agents + 1)
+                for i in range(1, num_agents + 1):
+                    pos_x = start[0] + i * step_x
+                    pos_y = start[1] + i * step_y
+                    # Snap to grid center
+                    snapped_x = (pos_x // self.UNIT) * self.UNIT + self.UNIT / 2
+                    snapped_y = (pos_y // self.UNIT) * self.UNIT + self.UNIT / 2
+                    positions.append([snapped_x, snapped_y])
+                return positions
 
-            positions = positions[:self.num_agents]
+            # Calculate how many agents need to be placed on each edge
+            num_edges = 4
+            edge_distribution = [0] * num_edges  # Top, Right, Bottom, Left
+
+            # Assign agents equally to each edge, clockwise
+            remaining_agents = self.num_agents - 4
+            for i in range(remaining_agents):
+                edge_distribution[i % num_edges] += 1
+
+            # Add agents to the top row
+            top_edge_positions = evenly_spaced_positions(
+                positions[0], positions[1], edge_distribution[0])
+            positions += top_edge_positions
+
+            # Add agents to the right column
+            right_edge_positions = evenly_spaced_positions(
+                positions[1], positions[2], edge_distribution[1])
+            positions += right_edge_positions
+
+            # Add agents to the bottom row
+            bottom_edge_positions = evenly_spaced_positions(
+                positions[2], positions[3], edge_distribution[2])
+            positions += bottom_edge_positions
+
+            # Add agents to the left column
+            left_edge_positions = evenly_spaced_positions(
+                positions[3], positions[0], edge_distribution[3])
+            positions += left_edge_positions
 
             # Save the initial positions for later use in resetting
             self.initial_agent_positions = positions.copy()
 
+            # Create agents and assign positions
             for i in range(self.num_agents):
                 agent = {'id': i, 'coords': positions[i]}
                 self.agents.append(agent)
 
         self.messages = [None] * len(self.agents)
+
+
+
 
 
     def _build_canvas(self):
@@ -416,7 +450,7 @@ class Env(tk.Tk):
 
 
     def render(self):
-        time.sleep(0.00001)
+        time.sleep(0.5)
         self.update()
 
     def destroy_environment(self):
